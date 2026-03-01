@@ -4,12 +4,13 @@ file_src = 'compiler/raw.asm'
 file_dst = 'main.asm'  
 start_word = "main>"          
 end_word = "end."            
+rts_word = "rts"
 
 with open(file_src, 'r', encoding='utf-8') as f:
     src_content = f.read()
 
-middle_part = src_content.split(start_word)[1].split(end_word)[0]
-new_block = start_word + middle_part + end_word
+middle_part = src_content.split(start_word)[1].split(end_word)[0].rsplit(rts_word)[0]
+new_block = start_word + middle_part + '\n' + end_word
 
 
 with open(file_dst, 'r', encoding='utf-8') as f:
