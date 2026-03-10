@@ -1,8 +1,14 @@
-#define int16_t int
-#define int8_t char
-#define uint16_t unsigned int
-#define uint8_t unsigned char
+#include "header.h"
 
-int16_t main(){
-    return 0;
+
+int main(){
+    _stateReg = 1; 
+    _points[0] = 1;
+    _points[1] = 2;
+    _points[2] = 3;
+    _points[3] = 4;
+    _points[4] = 5;
+    _points[5] = 6;
+    _points[23] = 7;
 }
+

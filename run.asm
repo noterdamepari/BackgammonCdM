@@ -1,11 +1,12 @@
+main: ext               
 asect 0
-main: ext               # Declare labels
+run: ext
 default_handler: ext    # as external
 
 # Interrupt vector table (IVT)
 # Place a vector to program start and map 
 # all internal exceptions to default_handler
-dc main, 0              # Startup/Reset vector
+dc run, 0              # Startup/Reset vector
 dc default_handler, 0   # Unaligned SP
 dc default_handler, 0   # Unaligned PC
 dc default_handler, 0   # Invalid instruction
@@ -16,22 +17,19 @@ align 0x80              # Reserve space for the rest
 # Exception handlers section
 rsect exc_handlers
 
-# This handler halts processor
+# # This handler halts processor
 default_handler>
     halt
 
-# Main program section
-rsect main
+# # Main program section
+rsect run
 
-main>                                   # -- Begin function main
-# %bb.0:                                # %entry
-	push	fp
-	ldsp	fp
-	addsp	-2
-	ldi	r0, 0
-	ssw	r0, -2
-	addsp	2
-	pop	fp
-	rts
-                                        # -- End function
+run>                                   # -- Begin function main
+    jsr main
+
+asect 0xff00
+_points> ds 48 # 0xff00
+_colors> ds 24 # 0xff30
+_stateReg> ds 1 # 0xff48
+
 end.

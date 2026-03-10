@@ -1,3 +1,4 @@
 main.backup.asm
 .vscode
 compiler/clang-19
+logisim/schemebackup.circ

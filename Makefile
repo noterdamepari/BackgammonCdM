@@ -1,14 +1,13 @@
 CLANG = ./compiler/clang-19
-SYNC  =  ./scripts/sync.py
 
 GREEN  = \033[1;32m
 RESET  = \033[0m
 
-all: main.asm
-main.asm: compiler/raw.asm
-	@$(SYNC)
-	@echo "Syncthing..."
-	@printf "$(GREEN)Ok$(RESET)\n"
-compiler/raw.asm: src/main.c
-	@$(CLANG) src/main.c -S -o compiler/raw.asm
-	@echo "Building..."
+all: app/main.asm app/graphics.asm
+	@printf "$(GREEN)Success!$(RESET)\n"
+app/main.asm: src/main.c 
+	@$(CLANG) src/main.c -S -o app/main.asm
+	@echo "Building main.asm..."
+app/graphics.asm: src/graphics.c
+	@$(CLANG) src/graphics.c -S -o app/graphics.asm
+	@echo "Building graphics.asm..."
