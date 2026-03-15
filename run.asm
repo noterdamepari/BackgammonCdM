@@ -25,6 +25,7 @@ default_handler>
 rsect run
 
 run>                                   # -- Begin function main
+    addsp -260
     jsr main
 
 asect 0xff00

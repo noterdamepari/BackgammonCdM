@@ -64,24 +64,4 @@ __LBB0_4:                               # %if.end9
 	pop	fp
 	rts
                                         # -- End function
-### SECTION: .rodata
-mask_table>                             # @mask_table
-	dc	0                               # 0x0
-	dc	1                               # 0x1
-	dc	3                               # 0x3
-	dc	7                               # 0x7
-	dc	15                              # 0xf
-	dc	31                              # 0x1f
-	dc	63                              # 0x3f
-	dc	127                             # 0x7f
-	dc	255                             # 0xff
-	dc	511                             # 0x1ff
-	dc	1023                            # 0x3ff
-	dc	2047                            # 0x7ff
-	dc	4095                            # 0xfff
-	dc	8191                            # 0x1fff
-	dc	16383                           # 0x3fff
-	dc	32767                           # 0x7fff
-	dc	65535                           # 0xffff
-
 end.

@@ -2,13 +2,15 @@
 
 
 int main(){
-    _stateReg = 1; 
-    _points[0] = 1;
-    _points[1] = 2;
-    _points[2] = 3;
-    _points[3] = 4;
-    _points[4] = 5;
-    _points[5] = 6;
-    _points[23] = 7;
+    _stateReg = 0; 
+    for (int i = 0; i < 12; i++){
+        _points[i] = i;
+        _stateReg = !_stateReg;
+    }
+    _stateReg = 1;
+    for (int i = 12; i < 20; i++){
+        _points[i] = i-12;
+        _stateReg = !_stateReg;
+    }
 }
 
