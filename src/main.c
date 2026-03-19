@@ -1,16 +1,29 @@
 #include "header.h"
 
+char* input_addr = (char*)KEYBOARD;
 
 int main(){
+    char x,y;
     _stateReg = 0; 
-    for (int i = 0; i < 12; i++){
-        _points[i] = i;
-        _stateReg = !_stateReg;
+    _points[0] = 11;
+    char* str = "from: ";
+    for (int i = 0; i < 7; i++){
+        *(char*)TTY = str[i];
     }
-    _stateReg = 1;
-    for (int i = 12; i < 20; i++){
-        _points[i] = i-12;
-        _stateReg = !_stateReg;
+
+    // waiting for a move
+    while(!(x = *input_addr)){
     }
+    x -= 'a';
+    str = "\nto: ";
+    for (int i = 0; i < 6; i++){    // char* str = "from: ";
+        *(char*)TTY = str[i];
+    }
+
+    // waiting for a move
+    while(!(y = *input_addr)){
+    }
+    y -= 'a';
+    move_checker(x,y);
 }
 
