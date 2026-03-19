@@ -32,5 +32,6 @@ asect 0xff00
 _points> ds 48 # 0xff00
 _colors> ds 24 # 0xff30
 _stateReg> ds 1 # 0xff48
+_huyovina> ds 1 # 0xff49
 
 end.
