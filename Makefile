@@ -5,7 +5,7 @@ RESET  = \033[0m
 
 CFLAGS = -O0
 
-all: app/main.asm app/graphics.asm
+all: app/main.asm app/graphics.asm app/logic.asm
 	@printf "$(GREEN)Success! Builded with $(CFLAGS)$(RESET)\n"
 
 dbg: CFLAGS = -Wall -O0
@@ -26,6 +26,9 @@ app/main.asm: src/main.c
 app/graphics.asm: src/graphics.c
 	@$(CLANG) src/graphics.c -S $(CFLAGS) -o app/graphics.asm
 	@echo "Building graphics.asm..."
+app/logic.asm: src/logic.c
+	@$(CLANG) src/logic.c -S $(CFLAGS) -o app/logic.asm
+	@echo "Building logic.asm..."
 
 clean:
 	rm -f app/*.asm
