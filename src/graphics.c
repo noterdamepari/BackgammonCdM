@@ -1,6 +1,8 @@
 #include "header.h"
 
-char move_checker(char from, char to){
+volatile char* out1 = (char*)TTY;
+
+char move_checker(unsigned char from, unsigned char to){
     if (_points[to]++ == 0){
         _colors[to] = _stateReg;
     }    
@@ -9,3 +11,11 @@ char move_checker(char from, char to){
     }
     return 0;
 }
+
+void PrintToTTY(char* string){
+    while (*string){
+        *out1 = *string;
+        string++;
+    }
+}
+

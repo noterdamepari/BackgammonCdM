@@ -1,7 +1,10 @@
 ### SECTION: .text
 rsect _src_main_c_1804289383
 
+PrintToTTY: ext
 move_checker: ext
+_random1: ext
+_random2: ext
 _stateReg: ext
 _points: ext
 
@@ -11,155 +14,139 @@ push $1
 pop $2
 mend
 
+randomize>                              # -- Begin function randomize
+# %bb.0:                                # %entry
+	rts
+                                        # -- End function
+player_move>                            # -- Begin function player_move
+# %bb.0:                                # %entry
+	push	fp
+	ldsp	fp
+	addsp	-6
+	ssw	r4, -2                          # 2-byte Folded Spill
+	ssw	r5, -4                          # 2-byte Folded Spill
+	ssw	r6, -6                          # 2-byte Folded Spill
+	ldi	r0, __L.str
+	jsr	PrintToTTY
+	ldi	r0, __L.str.1
+	jsr	PrintToTTY
+	ldi	r6, in
+	ldw	r6, r0
+	ldi	r4, 0
+__LBB1_1:                               # %while.cond
+                                        # =>This Inner Loop Header: Depth=1
+	ldb	r0, r5
+	cmp	r5, r4
+	beq	__LBB1_1
+	br	__LBB1_2
+__LBB1_2:                               # %while.end
+	ldi	r0, __L.str.2
+	jsr	PrintToTTY
+	ldw	r6, r1
+__LBB1_3:                               # %while.cond2
+                                        # =>This Inner Loop Header: Depth=1
+	ldb	r1, r0
+	cmp	r0, r4
+	beq	__LBB1_3
+	br	__LBB1_4
+__LBB1_4:                               # %while.end6
+	ldi	r2, -97
+	add r0, r2, r1
+	add r5, r2, r0
+	sxt	r0, r2
+	sxt	r1, r3
+	sub r3, r2, r2
+	ldi	r3, _random1
+	ldsb	r3, r3
+	ldi	r5, _random2
+	ldsb	r5, r5
+	add r5, r3, r3
+	cmp	r2, r3
+	ble	__LBB1_6
+	br	__LBB1_5
+__LBB1_5:                               # %if.then
+	ldi	r0, __L.str.3
+	jsr	PrintToTTY
+	ldi	r4, 1
+	br	__LBB1_7
+__LBB1_6:                               # %if.end
+	ldi	r2, 255
+	and r0, r2, r0
+	and r1, r2, r1
+	jsr	move_checker
+__LBB1_7:                               # %cleanup
+	movens	r4, r0
+	lsw	r6, -6                          # 2-byte Folded Reload
+	lsw	r5, -4                          # 2-byte Folded Reload
+	lsw	r4, -2                          # 2-byte Folded Reload
+	addsp	6
+	pop	fp
+	rts
+                                        # -- End function
+computer_move>                          # -- Begin function computer_move
+# %bb.0:                                # %entry
+	push	fp
+	ldsp	fp
+	addsp	0
+	ldi	r0, __L.str.4
+	jsr	PrintToTTY
+	addsp	0
+	pop	fp
+	rts
+                                        # -- End function
 main>                                   # -- Begin function main
 # %bb.0:                                # %entry
 	push	fp
 	ldsp	fp
-	addsp	-12
+	addsp	-2
 	ssw	r4, -2                          # 2-byte Folded Spill
-	ldi	r0, 0
-	ssw	r0, -4
-	ldi	r1, _stateReg
-	stb	r1, r0
-	ldi	r2, _points
+	ldi	r0, _stateReg
+	ldi	r4, 0
+	stb	r0, r4
+	ldi	r0, _points
 	ldi	r1, 11
-	stw	r2, r1
-	ldi	r1, __L.str
-	shr	r1, r2, 8
-	ldi	r3, -8
-	add	r3, fp, r3
-	ldi	r4, 1
-	stb	r3, r4, r2
-	ssb	r1, -8
-	ssw	r0, -10
-	br	__LBB0_1
-__LBB0_1:                               # %for.cond
-                                        # =>This Inner Loop Header: Depth=1
-	lsw	r0, -10
-	ldi	r1, 6
-	cmp	r0, r1
-	bgt	__LBB0_4
-	br	__LBB0_2
-__LBB0_2:                               # %for.body
-                                        #   in Loop: Header=BB0_1 Depth=1
-	ldi	r0, -8
-	add	r0, fp, r0
-	ldi	r1, 1
-	ldb	r0, r1, r0
-	shl	r0, r0, 8
-	lsb	r1, -8
-	or r0, r1, r0
-	lsw	r1, -10
-	ldb	r0, r1, r0
-	ldi	r1, -8529
-	stb	r1, r0
-	br	__LBB0_3
-__LBB0_3:                               # %for.inc
-                                        #   in Loop: Header=BB0_1 Depth=1
-	lsw	r0, -10
-	add	r0, 1
-	ssw	r0, -10
-	br	__LBB0_1
-__LBB0_4:                               # %for.end
-	br	__LBB0_5
-__LBB0_5:                               # %while.cond
-                                        # =>This Inner Loop Header: Depth=1
-	ldi	r0, input_addr
-	ldb	r0, r1
-	ldi	r0, input_addr+1
-	ldb	r0, r0
-	shl	r0, r0, 8
-	or r0, r1, r0
-	ldb	r0, r0
-	ssb	r0, -5
-	ldi	r1, 0
-	cmp	r0, r1
-	bne	__LBB0_7
-	br	__LBB0_6
-__LBB0_6:                               # %while.body
-                                        #   in Loop: Header=BB0_5 Depth=1
-	br	__LBB0_5
-__LBB0_7:                               # %while.end
-	lsb	r0, -5
-	ldi	r1, -97
-	add r0, r1, r0
-	ssb	r0, -5
-	ldi	r0, __L.str.1
-	shr	r0, r1, 8
-	ldi	r2, -8
-	add	r2, fp, r2
-	ldi	r3, 1
-	stb	r2, r3, r1
-	ssb	r0, -8
-	ldi	r0, 0
-	ssw	r0, -12
-	br	__LBB0_8
-__LBB0_8:                               # %for.cond3
-                                        # =>This Inner Loop Header: Depth=1
-	lsw	r0, -12
+	stw	r0, r1
+	ldi	r0, _random1
 	ldi	r1, 5
-	cmp	r0, r1
-	bgt	__LBB0_11
-	br	__LBB0_9
-__LBB0_9:                               # %for.body6
-                                        #   in Loop: Header=BB0_8 Depth=1
-	ldi	r0, -8
-	add	r0, fp, r0
-	ldi	r1, 1
-	ldb	r0, r1, r0
-	shl	r0, r0, 8
-	lsb	r1, -8
-	or r0, r1, r0
-	lsw	r1, -12
-	ldb	r0, r1, r0
-	ldi	r1, -8529
-	stb	r1, r0
-	br	__LBB0_10
-__LBB0_10:                              # %for.inc8
-                                        #   in Loop: Header=BB0_8 Depth=1
-	lsw	r0, -12
-	add	r0, 1
-	ssw	r0, -12
-	br	__LBB0_8
-__LBB0_11:                              # %for.end10
-	br	__LBB0_12
-__LBB0_12:                              # %while.cond11
+	stb	r0, r1
+	ldi	r0, _random2
+	ldi	r1, 2
+	stb	r0, r1
+__LBB3_1:                               # %while.body
                                         # =>This Inner Loop Header: Depth=1
-	ldi	r0, input_addr
-	ldb	r0, r1
-	ldi	r0, input_addr+1
-	ldb	r0, r0
-	shl	r0, r0, 8
-	or r0, r1, r0
-	ldb	r0, r0
-	ssb	r0, -6
-	ldi	r1, 0
-	cmp	r0, r1
-	bne	__LBB0_14
-	br	__LBB0_13
-__LBB0_13:                              # %while.body14
-                                        #   in Loop: Header=BB0_12 Depth=1
-	br	__LBB0_12
-__LBB0_14:                              # %while.end15
-	lsb	r0, -6
-	ldi	r1, -97
-	add r0, r1, r0
-	ssb	r0, -6
-	lssb	r0, -5
-	lssb	r1, -6
-	jsr	move_checker
-	lsw	r0, -4
+	jsr	player_move
+	cmp	r0, r4
+	bne	__LBB3_1
+	br	__LBB3_2
+__LBB3_2:                               # %while.end
+	ldi	r0, __L.str.4
+	jsr	PrintToTTY
+	ldi	r0, 0
 	lsw	r4, -2                          # 2-byte Folded Reload
-	addsp	12
+	addsp	2
 	pop	fp
 	rts
                                         # -- End function
 ### SECTION: .data
-input_addr>                             # @input_addr
-	dc	57005
+in>                                     # @in
+	dc	57006
 
 ### SECTION: .rodata.str1.1
 __L.str:                                # @.str
+	db	89
+	db	111
+	db	117
+	db	114
+	db	32
+	db	116
+	db	117
+	db	114
+	db	110
+	db	58
+	db	10
+	db	0
+
+__L.str.1:                              # @.str.1
 	db	102
 	db	114
 	db	111
@@ -168,12 +155,59 @@ __L.str:                                # @.str
 	db	32
 	db	0
 
-__L.str.1:                              # @.str.1
+__L.str.2:                              # @.str.2
 	db	10
 	db	116
 	db	111
 	db	58
 	db	32
+	db	0
+
+__L.str.3:                              # @.str.3
+	db	10
+	db	89
+	db	111
+	db	117
+	db	114
+	db	32
+	db	109
+	db	111
+	db	118
+	db	101
+	db	32
+	db	105
+	db	115
+	db	32
+	db	105
+	db	110
+	db	118
+	db	97
+	db	108
+	db	105
+	db	100
+	db	33
+	db	10
+	db	0
+
+__L.str.4:                              # @.str.4
+	db	10
+	db	67
+	db	111
+	db	109
+	db	112
+	db	117
+	db	116
+	db	101
+	db	114
+	db	32
+	db	116
+	db	117
+	db	114
+	db	110
+	db	46
+	db	46
+	db	46
+	db	10
 	db	0
 
 end.

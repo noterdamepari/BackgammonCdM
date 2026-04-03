@@ -11,8 +11,11 @@ all: app/main.asm app/graphics.asm
 dbg: CFLAGS = -Wall -O0
 dbg: all
 
-opt: CFLAGS = -O2
+opt: CFLAGS = -Wall -O2
 opt: all
+
+dbgopt: CFLAGS = -Wall -O2
+dbgopt: all
 
 app/main.asm: src/main.c 
 	@$(CLANG) src/main.c -S $(CFLAGS) -o app/main.asm
