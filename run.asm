@@ -25,15 +25,14 @@ default_handler>
 rsect run
 
 run>                                   # -- Begin function main
-    addsp -260
+    # addsp -300
     jsr main
 
 asect 0xff00
-_points> ds 48 # 0xff00
-_colors> ds 24 # 0xff30
-_stateReg> ds 1 # 0xff48
-_dbg> ds 1 # 0xff49
-_random1> ds 1 #0xff50
-_random2> ds 1 #0xff51
+_points> ds 50 # 0xff00
+_colors> ds 24 # 0xff32
+_stateReg> ds 1 # 0xff4a
+_dbg> ds 1 # 0xff4b
+_random> ds 2 #0xff4c,0xff4d
 
 end.

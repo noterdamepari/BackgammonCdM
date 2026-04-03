@@ -17,6 +17,9 @@ opt: all
 dbgopt: CFLAGS = -Wall -O2
 dbgopt: all
 
+dbgmaxopt: CFLAGS = -Wall -O3
+dbgmaxopt: all
+
 app/main.asm: src/main.c 
 	@$(CLANG) src/main.c -S $(CFLAGS) -o app/main.asm
 	@echo "Building main.asm..."

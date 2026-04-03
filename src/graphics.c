@@ -3,10 +3,10 @@
 volatile char* out1 = (char*)TTY;
 
 char move_checker(unsigned char from, unsigned char to){
-    if (_points[to]++ == 0){
+    if (_points[to+1]++ == 0){
         _colors[to] = _stateReg;
     }    
-    if(--_points[from] == 0){
+    if(--_points[from+1] == 0){
         _colors[from] = -1;
     }
     return 0;

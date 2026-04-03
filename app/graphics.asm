@@ -19,7 +19,7 @@ move_checker>                           # -- Begin function move_checker
 	ssw	r4, -2                          # 2-byte Folded Spill
 	ssw	r5, -4                          # 2-byte Folded Spill
 	shl	r1, r3, 1
-	ldi	r2, _points
+	ldi	r2, _points+2
 	ldw	r3, r2, r4
 	movens	r4, r5
 	add	r5, 1
@@ -41,11 +41,11 @@ __LBB0_2:                               # %if.end
 	cmp	r4, r3
 	bne	__LBB0_4
 	br	__LBB0_3
-__LBB0_3:                               # %if.then6
+__LBB0_3:                               # %if.then8
 	ldi	r1, _colors
 	ldi	r2, 255
 	stb	r0, r1, r2
-__LBB0_4:                               # %if.end9
+__LBB0_4:                               # %if.end11
 	ldi	r0, 0
 	lsw	r5, -4                          # 2-byte Folded Reload
 	lsw	r4, -2                          # 2-byte Folded Reload
