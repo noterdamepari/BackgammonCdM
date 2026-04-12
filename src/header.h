@@ -4,12 +4,15 @@
 #define uint16_t unsigned int
 #define uint8_t unsigned char
 
-#define KEYBOARD 0xdead
-#define TTY 0xdeaf
+#define KEYBOARD 0xdeae
+#define TTY 0xdeb0
 
-extern volatile int _points[24];
-extern volatile char _colors[24];
-extern volatile char _stateReg; // 0 - player move; 1 - computer move
+extern volatile unsigned int _points[25]; // zero is null point, starts from 1
+extern volatile char _colors[25]; // 0 - clear point, 1 - player`s point, 2 - computer`s point 
+extern volatile char _player; // 1 - player move; 0 - computer move
 extern volatile char _dbg; 
+extern volatile char _random[2];
 
-char move_checker(char from, char to);
+char move_checker(unsigned char from, unsigned char to, int dice_count, int head_taken);
+void PrintToTTY(char* string);
+char isMoveValid(unsigned char from, unsigned char to, int dice_count, int head_taken);
