@@ -2,7 +2,7 @@
 
 volatile char* in = (char*)KEYBOARD;
 
-static unsigned int state = 52679;
+static unsigned int state = 57123;
 
 unsigned int xorshift16() {
     unsigned int x = state;
@@ -23,6 +23,11 @@ void randomize(){
     }
 }
 
+void inline getc(char* buf){
+    while(!(*buf = *in));
+    *buf -= 'a';
+}
+
 char player_move(char prevWasInvalid){
     if (!prevWasInvalid) randomize();
     char x,y;
@@ -30,13 +35,9 @@ char player_move(char prevWasInvalid){
     PrintToTTY("from: ");
 
     // * Получаем координаты хода
-    while(!(x = *in)){
-    }
-    x -= 'a';
+    getc(&x);
     PrintToTTY("\nto: ");
-    while(!(y = *in)){
-    }
-    y -= 'a';
+    getc(&y);
 
     // TODO: Проверка на валидность хода
     // _stateReg = 1;
@@ -70,6 +71,7 @@ int main(){
     _colors[13] = 2;
     _stateReg = -1;
     char last_failed = 0;
+
     while(1){
         last_failed = player_move(last_failed);
         if (last_failed == 0){
