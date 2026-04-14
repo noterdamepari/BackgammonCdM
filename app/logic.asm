@@ -60,10 +60,10 @@ isMoveValid>                            # -- Begin function isMoveValid
 	ldi	r0, __L.str
 	ldb	r1, r5
 	ldi	r4, _colors
-	ldb	r5, r4, r3
-	ldi	r6, _player
-	ldb	r6, r6
-	cmp	r3, r6
+	ldb	r5, r4, r6
+	ldi	r3, _player
+	ldb	r3, r3
+	cmp	r6, r3
 	bne	__LBB1_22
 	br	__LBB1_1
 __LBB1_1:                               # %lor.lhs.false
@@ -76,18 +76,18 @@ __LBB1_1:                               # %lor.lhs.false
 	br	__LBB1_2
 __LBB1_2:                               # %if.end
 	ldi	r0, _player
-	ldb	r0, r6
-	ldi	r3, 2
+	ldb	r0, r3
+	ldi	r6, 2
 	ldi	r0, 1
-	cmp	r6, r0
+	cmp	r3, r0
 	beq	__LBB1_4
 # %bb.3:                                # %if.end
-	movens	r0, r3
+	movens	r0, r6
 __LBB1_4:                               # %if.end
 	ldb	r1, r0, r1
 	ldi	r0, __L.str.1
-	ldsb	r1, r4, r4
-	cmp	r3, r4
+	ldsb	r1, r4, r3
+	cmp	r6, r3
 	ldi	r6, 0
 	beq	__LBB1_22
 	br	__LBB1_5
@@ -137,17 +137,18 @@ __LBB1_14:                              # %if.end28
 	ldi	r0, _player
 	ldb	r0, r0
 	cmp	r0, r4
+	movens	r6, r1
 	beq	__LBB1_16
 # %bb.15:                               # %if.end28
-	ldi	r6, 12
+	ldi	r1, 12
 __LBB1_16:                              # %if.end28
 	lsw	r0, -8                          # 2-byte Folded Reload
-	cmp	r0, r4
-	blt	__LBB1_18
+	cmp	r0, r6
+	bne	__LBB1_18
 	br	__LBB1_17
 __LBB1_17:                              # %if.end28
 	ldi	r0, __L.str.3
-	cmp	r6, r5
+	cmp	r1, r5
 	beq	__LBB1_22
 	br	__LBB1_18
 __LBB1_18:                              # %for.cond.preheader

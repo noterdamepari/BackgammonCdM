@@ -49,6 +49,11 @@ char isMoveValid(unsigned char* move, unsigned char* dice, int dice_count, int h
     if (!can_move) { 
         PrintToTTY("\nErr: Dice doesn`t exists\n");
         return 0;
-    }
+    } 
+    // TODO: Правило забора
     return 1;
 }
+
+
+char isRemoveValid();
+// TODO: Вывод фишек

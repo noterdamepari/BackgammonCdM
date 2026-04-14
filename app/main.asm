@@ -94,7 +94,7 @@ player_move>                            # -- Begin function player_move
 # %bb.0:                                # %entry
 	push	fp
 	ldsp	fp
-	addsp	-22
+	addsp	-24
 	ssw	r4, -2                          # 2-byte Folded Spill
 	ssw	r5, -4                          # 2-byte Folded Spill
 	ssw	r6, -6                          # 2-byte Folded Spill
@@ -103,7 +103,7 @@ player_move>                            # -- Begin function player_move
 	ldi	r0, state
 	ldw	r0, r2
 	ldi	r1, 7
-	ldi	r5, 0
+	ldi	r4, 0
 __LBB2_1:                               # %do.body.i
                                         # =>This Inner Loop Header: Depth=1
 	shl	r2, r3, 7
@@ -114,7 +114,7 @@ __LBB2_1:                               # %do.body.i
 	shl	r3, r2, 8
 	xor r2, r3, r2
 	and r3, r1, r3
-	cmp	r3, r5
+	cmp	r3, r4
 	beq	__LBB2_1
 	br	__LBB2_2
 __LBB2_2:                               # %do.body.i
@@ -123,8 +123,8 @@ __LBB2_2:                               # %do.body.i
 	beq	__LBB2_1
 	br	__LBB2_3
 __LBB2_3:                               # %do.end.i
-	ldi	r4, _random
-	stb	r4, r3
+	ldi	r5, _random
+	stb	r5, r3
 __LBB2_4:                               # %do.body.1.i
                                         # =>This Inner Loop Header: Depth=1
 	shl	r2, r3, 7
@@ -135,7 +135,7 @@ __LBB2_4:                               # %do.body.1.i
 	shl	r3, r2, 8
 	xor r2, r3, r2
 	and r3, r1, r3
-	cmp	r3, r5
+	cmp	r3, r4
 	beq	__LBB2_4
 	br	__LBB2_5
 __LBB2_5:                               # %do.body.1.i
@@ -147,13 +147,14 @@ __LBB2_6:                               # %randomize.exit
 	stw	r0, r2
 	ldi	r0, _random+1
 	stb	r0, r3
-	ldi	r1, 2
-	ldb	r4, r4
+	ldi	r6, 2
+	ldi	r3, 1
+	ldb	r5, r5
 	ldb	r0, r0
-	cmp	r4, r0
+	cmp	r5, r0
 	ldi	r2, -10
-	ssw	r0, -22                         # 2-byte Folded Spill
-	movens	r1, r3
+	ssw	r0, -24                         # 2-byte Folded Spill
+	ssw	r3, -16                         # 2-byte Folded Spill
 	bne	__LBB2_8
 	br	__LBB2_7
 __LBB2_7:                               # %if.then
@@ -162,30 +163,30 @@ __LBB2_7:                               # %if.then
 	ldi	r2, -10
 	add	r2, fp, r0
 	ldi	r1, 3
-	stb	r0, r1, r4
+	stb	r0, r1, r5
 	ldi	r1, 2
-	stb	r0, r1, r4
-	ldi	r3, 4
-	movens	r4, r0
+	ssw	r1, -16                         # 2-byte Folded Spill
+	stb	r0, r1, r5
+	ldi	r6, 4
+	movens	r5, r0
 __LBB2_8:                               # %if.end
 	add	r2, fp, r1
-	ldi	r6, 1
-	stb	r1, r6, r0
-	ssw	r4, -20                         # 2-byte Folded Spill
-	ssb	r4, -10
-	ssw	r5, -16                         # 2-byte Folded Spill
+	ldi	r2, 1
+	stb	r1, r2, r0
+	ssw	r5, -22                         # 2-byte Folded Spill
+	ssb	r5, -10
+	ldi	r5, -12
 __LBB2_9:                               # %while.body
                                         # =>This Loop Header: Depth=1
                                         #     Child Loop BB2_10 Depth 2
                                         #     Child Loop BB2_14 Depth 2
                                         #     Child Loop BB2_20 Depth 2
 	ldi	r0, __L.str.2
-	movens	r3, r4
 	jsr	PrintToTTY
-	ssw	r4, -14                         # 2-byte Folded Spill
-	add	r4, 48
+	ssw	r6, -14                         # 2-byte Folded Spill
+	add	r6, 48
 	ldi	r1, -8528
-	stb	r1, r4
+	stb	r1, r6
 	ldi	r0, __L.str.3
 	jsr	PrintToTTY
 	ldi	r0, in
@@ -195,7 +196,7 @@ __LBB2_10:                              # %while.cond.i
                                         # =>  This Inner Loop Header: Depth=2
 	ldb	r0, r1
 	ssb	r1, -12
-	cmp	r1, r5
+	cmp	r1, r4
 	beq	__LBB2_10
 	br	__LBB2_11
 __LBB2_11:                              # %getc.exit
@@ -207,6 +208,7 @@ __LBB2_11:                              # %getc.exit
 	and r0, r1, r0
 	ldi	r1, 25
 	cmp	r0, r1
+	ldi	r6, 1
 	bne	__LBB2_13
 	br	__LBB2_12
 __LBB2_13:                              # %if.end14
@@ -215,21 +217,20 @@ __LBB2_13:                              # %if.end14
 	jsr	PrintToTTY
 	ldi	r0, in
 	ldw	r0, r0
-	ldi	r4, -12
 __LBB2_14:                              # %while.cond.i87
                                         #   Parent Loop BB2_9 Depth=1
                                         # =>  This Inner Loop Header: Depth=2
 	ldb	r0, r1
-	add	r4, fp, r2
+	add	r5, fp, r2
 	stb	r2, r6, r1
-	cmp	r1, r5
+	cmp	r1, r4
 	beq	__LBB2_14
 	br	__LBB2_15
 __LBB2_15:                              # %getc.exit90
                                         #   in Loop: Header=BB2_9 Depth=1
 	ldi	r0, -97
 	add r1, r0, r1
-	add	r4, fp, r0
+	add	r5, fp, r0
 	stb	r0, r6, r1
 	ldi	r1, _player
 	stb	r1, r6
@@ -238,24 +239,26 @@ __LBB2_15:                              # %getc.exit90
 	lsw	r2, -14                         # 2-byte Folded Reload
 	lsw	r3, -16                         # 2-byte Folded Reload
 	jsr	isMoveValid
-	cmp	r0, r5
+	cmp	r0, r4
 	beq	__LBB2_30
 	br	__LBB2_16
 __LBB2_16:                              # %if.then19
                                         #   in Loop: Header=BB2_9 Depth=1
-	add	r4, fp, r0
-	movens	r0, r4
+	add	r5, fp, r0
+	ssw	r0, -20                         # 2-byte Folded Spill
 	jsr	move_checker
 	lssb	r0, -12
-	cmp	r0, r5
-	ssw	r6, -18                         # 2-byte Folded Spill
+	cmp	r0, r4
+	movens	r6, r1
 	beq	__LBB2_18
 # %bb.17:                               # %if.then19
                                         #   in Loop: Header=BB2_9 Depth=1
-	ssw	r5, -18                         # 2-byte Folded Spill
+	movens	r4, r1
 __LBB2_18:                              # %if.then19
                                         #   in Loop: Header=BB2_9 Depth=1
-	ldsb	r4, r6, r1
+	ssw	r1, -18                         # 2-byte Folded Spill
+	lsw	r1, -20                         # 2-byte Folded Reload
+	ldsb	r1, r6, r1
 	jsr	get_dst
 	lsw	r1, -14                         # 2-byte Folded Reload
 	cmp	r1, r6
@@ -264,7 +267,7 @@ __LBB2_18:                              # %if.then19
 	br	__LBB2_19
 __LBB2_19:                              # %for.body.preheader
                                         #   in Loop: Header=BB2_9 Depth=1
-	movens	r5, r1
+	movens	r4, r1
 __LBB2_20:                              # %for.body
                                         #   Parent Loop BB2_9 Depth=1
                                         # =>  This Inner Loop Header: Depth=2
@@ -282,51 +285,48 @@ __LBB2_22:                              # %for.inc
 	br	__LBB2_23
 __LBB2_21:                              # %if.then37
                                         #   in Loop: Header=BB2_9 Depth=1
-	lsw	r2, -18                         # 2-byte Folded Reload
-	ssw	r2, -18                         # 2-byte Folded Spill
-	lsw	r4, -14                         # 2-byte Folded Reload
-	sub	r4, 1
+	lsw	r6, -14                         # 2-byte Folded Reload
+	sub	r6, 1
 	add	r3, fp, r2
-	ssw	r4, -14                         # 2-byte Folded Spill
-	ldb	r2, r4, r3
+	ssw	r6, -14                         # 2-byte Folded Spill
+	ldb	r2, r6, r3
 	stb	r2, r1, r3
 	br	__LBB2_23
 __LBB2_23:                              # %cleanup
                                         #   in Loop: Header=BB2_9 Depth=1
 	lsw	r1, -16                         # 2-byte Folded Reload
 	lsw	r2, -18                         # 2-byte Folded Reload
-	add r1, r2, r1
+	sub r1, r2, r1
 	ssw	r1, -16                         # 2-byte Folded Spill
-	lsw	r1, -20                         # 2-byte Folded Reload
-	lsw	r2, -22                         # 2-byte Folded Reload
+	lsw	r1, -22                         # 2-byte Folded Reload
+	lsw	r2, -24                         # 2-byte Folded Reload
 	cmp	r1, r2
 	beq	__LBB2_28
 	br	__LBB2_24
 __LBB2_28:                              # %if.else58
                                         #   in Loop: Header=BB2_9 Depth=1
 	ldi	r0, 2
-	lsw	r3, -14                         # 2-byte Folded Reload
-	cmp	r3, r0
+	lsw	r6, -14                         # 2-byte Folded Reload
+	cmp	r6, r0
 	bne	__LBB2_31
 	br	__LBB2_29
 __LBB2_29:                              # %if.then61
                                         #   in Loop: Header=BB2_9 Depth=1
 	ldi	r0, _random+1
-	stb	r0, r5
-	ldi	r0, 2
-	movens	r0, r3
+	stb	r0, r4
+	ldi	r6, 2
 	br	__LBB2_31
 __LBB2_24:                              # %if.then46
                                         #   in Loop: Header=BB2_9 Depth=1
 	ldi	r2, _random
 	ldsb	r2, r1
 	cmp	r0, r1
-	lsw	r3, -14                         # 2-byte Folded Reload
+	lsw	r6, -14                         # 2-byte Folded Reload
 	bne	__LBB2_26
 	br	__LBB2_25
 __LBB2_25:                              # %if.then50
                                         #   in Loop: Header=BB2_9 Depth=1
-	stb	r2, r5
+	stb	r2, r4
 	br	__LBB2_31
 __LBB2_26:                              # %if.else51
                                         #   in Loop: Header=BB2_9 Depth=1
@@ -338,19 +338,19 @@ __LBB2_26:                              # %if.else51
 __LBB2_27:                              # %if.then55
                                         #   in Loop: Header=BB2_9 Depth=1
 	ldi	r0, _random+1
-	stb	r0, r5
+	stb	r0, r4
 	br	__LBB2_31
 __LBB2_30:                              # %if.else64
                                         #   in Loop: Header=BB2_9 Depth=1
 	ldi	r0, __L.str.6
 	jsr	PrintToTTY
-	lsw	r3, -14                         # 2-byte Folded Reload
+	lsw	r6, -14                         # 2-byte Folded Reload
 __LBB2_31:                              # %cleanup66
                                         #   in Loop: Header=BB2_9 Depth=1
 	ldi	r0, 255
 	ldi	r1, _player
 	stb	r1, r0
-	cmp	r3, r5
+	cmp	r6, r4
 	bne	__LBB2_9
 	br	__LBB2_32
 __LBB2_12:                              # %cleanup66.thread
@@ -361,7 +361,7 @@ __LBB2_32:                              # %while.end
 	lsw	r6, -6                          # 2-byte Folded Reload
 	lsw	r5, -4                          # 2-byte Folded Reload
 	lsw	r4, -2                          # 2-byte Folded Reload
-	addsp	22
+	addsp	24
 	pop	fp
 	rts
                                         # -- End function

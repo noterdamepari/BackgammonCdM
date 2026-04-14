@@ -28,7 +28,7 @@ void inline getc(unsigned char* buf){
     *buf -= 'a';
 }
 
-void player_move(){
+void player_move(unsigned char* can_remove_checker){
 
     PrintToTTY("\n--- Player Turn ---\n");
     randomize();
@@ -62,6 +62,8 @@ void player_move(){
 
         // * fetch coordinates
         PrintToTTY("\nfrom (z to pass): ");
+        // TODO: При вводе Y - делаем вывод фишки,\ продумать когда начинать предлагать вывести фишку, сверять каждый раз?
+        // Проверку делаем через can_remove_checker
         getc(move);
         if (move[0] == 'z' - 'a') {
             PrintToTTY("\nPassed.\n");
@@ -108,15 +110,19 @@ int main(){
 
     // init
     _player = 1; 
+    _amt_of_checkers[1] = 12;
     _points[1] = 12;
     _colors[0] = 1;
     _player = 0;
+    _amt_of_checkers[1] = 12;
     _points[13] = 12;
     _colors[12] = 2;
     _player = -1;
 
+    unsigned char can_remove_checker = 0;
+
     while(1){
-        player_move();
+        player_move(&can_remove_checker);
         computer_move();
     }
 }
