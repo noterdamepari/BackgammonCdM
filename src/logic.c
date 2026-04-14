@@ -14,7 +14,7 @@ int get_dst(char from, char to) {
     }
 }
 
-char isMoveValid(unsigned char* move, unsigned char* dice, int dice_count, int head_taken){
+char isMoveValid(unsigned char* move, unsigned char* dice, int dice_count, int head_can_taken){
     if (_colors[move[0]] != _player || !_points[move[0]+1]){
         PrintToTTY("\nErr: Not your checker!\n");
         return 0;
@@ -33,9 +33,8 @@ char isMoveValid(unsigned char* move, unsigned char* dice, int dice_count, int h
     }
 
     char head_pos = (_player == 1) ? 0 : 12; // проверяем правило головы
-    if (move[0] == head_pos && head_taken >= 1) {
+    if (move[0] == head_pos && head_can_taken == 0) {
         PrintToTTY("\nErr: Head rule\n");
-        // TODO: доделать исключение, если дубль
         return 0;
     } 
     // проверяем валидность хода, если не нашли кубик с длинной хода, то выходим

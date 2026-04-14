@@ -38,7 +38,7 @@ void player_move(){
 
     unsigned char dice[4];
     int dice_count = 0;
-    int head_taken = 0;
+    int head_can_taken = 0;
 
     char d1 = _random[0];
     char d2 = _random[1];
@@ -48,9 +48,11 @@ void player_move(){
         PrintToTTY("\nRolling doubles!!");
         dice[0] = d1; dice[1] = d1; dice[2] = d1; dice[3] = d1;
         dice_count = 4;
+        head_can_taken = 2;
     } else {
         dice[0] = d1; dice[1] = d2;
         dice_count = 2;
+        head_can_taken = 1;
     }
 
     while (dice_count){
@@ -68,9 +70,9 @@ void player_move(){
         PrintToTTY("\nto: ");
         getc(move+1);
         _player = 1;
-        if (isMoveValid(move, dice, dice_count, head_taken)){
+        if (isMoveValid(move, dice, dice_count, head_can_taken)){
             move_checker(move);
-            if (move[0] == 0) head_taken++;
+            if (move[0] == 0) head_can_taken--;
 
             int dist = get_dst(move[0], move[1]);
             for(int i = 0; i < dice_count; i++){
@@ -92,17 +94,6 @@ void player_move(){
         }
         _player = -1;
     }
-
-    // _player = 1;
-    // if (isMoveValid(x,y,dice_count, head_taken)){
-    //     move_checker(x,y,dice_count, &head_taken);
-    //     _player = -1;
-    //     return 0;
-    // } else {
-    //     PrintToTTY("\nInvalid\n");
-    //     _player = -1;
-    //     return 1;
-    // }
 }
 
 char computer_move(){
@@ -123,6 +114,7 @@ int main(){
     _points[13] = 12;
     _colors[12] = 2;
     _player = -1;
+
     while(1){
         player_move();
         computer_move();
