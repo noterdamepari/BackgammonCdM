@@ -1,5 +1,5 @@
 main.backup.asm
-.vscode
 compiler/clang-19
+compiler/clang-19old
 logisim/schemebackup.circ
 docs/.obsidian
