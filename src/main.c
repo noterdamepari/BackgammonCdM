@@ -23,10 +23,17 @@ void randomize(){
     }
 }
 
-void inline getc(unsigned char* buf){
-    while(!(*buf = *in));
-    *buf -= 'a';
+static unsigned char inline getc(){
+    unsigned char chr;
+    while(1) {
+        chr = *in;
+        if (chr >= 'a' && chr <= 'z') {
+            return chr - 'a';
+        }
+    }
+    // *buf -= 'a';
 }
+
 
 void player_move(unsigned char* can_remove_checker){
 
@@ -64,13 +71,13 @@ void player_move(unsigned char* can_remove_checker){
         PrintToTTY("\nfrom (z to pass): ");
         // TODO: При вводе Y - делаем вывод фишки,\ продумать когда начинать предлагать вывести фишку, сверять каждый раз?
         // Проверку делаем через can_remove_checker
-        getc(move);
+        move[0] = getc();
         if (move[0] == 'z' - 'a') {
             PrintToTTY("\nPassed.\n");
             break;
         }
         PrintToTTY("\nto: ");
-        getc(move+1);
+        move[1] = getc();
         _player = 1;
         if (isMoveValid(move, dice, dice_count, head_can_taken)){
             move_checker(move);
@@ -110,11 +117,11 @@ int main(){
 
     // init
     _player = 1; 
-    _amt_of_checkers[1] = 12;
+    // _amt_of_checkers[1] = 12;
     _points[1] = 12;
     _colors[0] = 1;
     _player = 0;
-    _amt_of_checkers[1] = 12;
+    // _amt_of_checkers[1] = 12;
     _points[13] = 12;
     _colors[12] = 2;
     _player = -1;

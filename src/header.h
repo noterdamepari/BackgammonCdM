@@ -12,7 +12,7 @@ extern volatile char _colors[25]; // 0 - clear point, 1 - player`s point, 2 - co
 extern volatile char _player; // 1 - player move; 0 - computer move
 extern volatile char _dbg; 
 extern volatile char _random[4];
-extern volatile char _amt_of_checkers[2];
+// extern volatile char _amt_of_checkers[2];
 
 char move_checker(unsigned char* move);
 void PrintToTTY(char* string);
