@@ -83,22 +83,28 @@ void player_move(unsigned char* can_remove_checker){
         PrintToTTY("\nMove validation...");
         if (isMoveValid(move, dice, dice_count, head_can_taken)){
             move_checker(move);
-            if (move[0] == 0) head_can_taken--;
-
-            int dist = get_dst(move[0], move[1]);
-            for(int i = 0; i < dice_count; i++){
-                if (dice[i] == dist) {
-                    dice[i] = dice[dice_count - 1]; 
-                    dice_count--;
-                    break;
-                }
-            }
-
-            if (d1 != d2) {
-                if (_random[0] == dist) _random[0] = 0;
-                else if (_random[1] == dist) _random[1] = 0;
+            if (!zabor_rule()){
+                unsigned char undomove[2] = {move[1], move[0]};
+                move_checker(undomove);
             } else {
-                if (dice_count == 2) _random[1] = 0;
+                PrintToTTY("\nOk...");
+                if (move[0] == 0) head_can_taken--;
+
+                int dist = get_dst(move[0], move[1]);
+                for(int i = 0; i < dice_count; i++){
+                    if (dice[i] == dist) {
+                        dice[i] = dice[dice_count - 1]; 
+                        dice_count--;
+                        break;
+                    }
+                }
+
+                if (d1 != d2) {
+                    if (_random[0] == dist) _random[0] = 0;
+                    else if (_random[1] == dist) _random[1] = 0;
+                } else {
+                    if (dice_count == 2) _random[1] = 0;
+                }
             }
         } else {
             PrintToTTY("\nInvalid\n");
@@ -125,12 +131,18 @@ int main(){
     _player = 0;
     _amt_of_checkers[0] = 12;
     _points[13] = 12;
+    _player = 1; 
+    for (int i = 14; i < 19;i++){
+        _points[i] = 1;
+        _colors[i-1] = 1;
+    }
+    _points[15] = 2;
     _colors[12] = 2;
     _player = -1;
     unsigned char can_remove_checker = 0;
-    while(1){
+    // while(1){
         player_move(&can_remove_checker);
-        computer_move();
-    }
+        // computer_move();
+    // }
 }
 

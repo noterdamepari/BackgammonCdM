@@ -15,9 +15,7 @@ int get_dst(char from, char to) {
     }
 }
 
-char check_Wall(unsigned char* move){
-    move_checker(move);
-    unsigned char undomove[2] = {move[1], move[0]};
+char zabor_rule(){
     char opponent = (_player == 1) ? 2 : 1;
 
     for (int i = 0; i < 24; i++) {
@@ -57,12 +55,10 @@ char check_Wall(unsigned char* move){
             }
             if (!found) {
                 PrintToTTY("\nErr: Illegal block (6 in row)\n");
-                move_checker(undomove);
                 return 0;
             }
         }
     }
-    move_checker(undomove);
     return 1;
 }
 
@@ -103,12 +99,6 @@ char isMoveValid(unsigned char* move, unsigned char* dice, int dice_count, int h
         return 0;
     } 
 
-    if (!check_Wall(move)){
-        PrintToTTY("\nZabor\n");
-        return 0;
-    }
-
-    // TODO: Правило забора
     return 1;
 }
 

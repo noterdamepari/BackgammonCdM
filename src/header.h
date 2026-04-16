@@ -16,6 +16,7 @@ extern volatile char _amt_of_checkers[2];
 
 char move_checker(unsigned char* move);
 void PrintToTTY(char* string);
+char zabor_rule();
 char isMoveValid(unsigned char* move, unsigned char* dice, int dice_count, int head_taken);
 char isRemoveValid();
 int get_dst(char from, char to);
