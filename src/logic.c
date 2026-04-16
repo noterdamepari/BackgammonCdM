@@ -1,5 +1,6 @@
 #include "header.h"
 
+
 int get_dst(char from, char to) {
     int dst = to - from;
     if (_player == 1) {
@@ -12,6 +13,57 @@ int get_dst(char from, char to) {
         if (dst == 0) return -1;
         return dst;
     }
+}
+
+char check_Wall(unsigned char* move){
+    move_checker(move);
+    unsigned char undomove[2] = {move[1], move[0]};
+    char opponent = (_player == 1) ? 2 : 1;
+
+    for (int i = 0; i < 24; i++) {
+        int count = 0;
+
+        // считаем подряд 6 точек
+        for (int j = 0; j < 6; j++) {
+            int idx = i + j;
+            if (idx >= 24) idx -= 24;
+
+            if (_colors[idx] == _player)
+                count++;
+            else
+                break;
+        }
+
+        if (count == 6) {
+            int found = 0;
+
+            for (int k = 0; k < 24; k++) {
+                int idx;
+
+                if (_player == 1){
+                    idx = i + 6 + k;
+                    if (idx >= 24) idx -= 24;
+                    if (idx >= 24) idx -= 24;
+                }
+                else{
+                    idx = i - 1 - k;
+                    if (idx < 0) idx += 24;
+                    if (idx < 0) idx += 24;
+                }
+                if (_colors[idx] == opponent) {
+                    found = 1;
+                    break;
+                }
+            }
+            if (!found) {
+                PrintToTTY("\nErr: Illegal block (6 in row)\n");
+                move_checker(undomove);
+                return 0;
+            }
+        }
+    }
+    move_checker(undomove);
+    return 1;
 }
 
 char isMoveValid(unsigned char* move, unsigned char* dice, int dice_count, int head_can_taken){
@@ -41,7 +93,7 @@ char isMoveValid(unsigned char* move, unsigned char* dice, int dice_count, int h
 
     char can_move = 0;
     for(int i = 0; i < dice_count; i++){
-        if (_random[i] == dist) {
+        if (dice[i] == dist) {
             can_move = 1;
             break;
         }
@@ -50,6 +102,12 @@ char isMoveValid(unsigned char* move, unsigned char* dice, int dice_count, int h
         PrintToTTY("\nErr: Dice doesn`t exists\n");
         return 0;
     } 
+
+    if (!check_Wall(move)){
+        PrintToTTY("\nZabor\n");
+        return 0;
+    }
+
     // TODO: Правило забора
     return 1;
 }

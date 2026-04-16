@@ -1,5 +1,4 @@
 #include "header.h"
-
 volatile char* in = (char*)KEYBOARD;
 
 static unsigned int state = 57123;
@@ -23,22 +22,16 @@ void randomize(){
     }
 }
 
-static unsigned char inline getc(){
-    unsigned char chr;
-    while(1) {
-        chr = *in;
-        if (chr >= 'a' && chr <= 'z') {
-            return chr - 'a';
-        }
-    }
-    // *buf -= 'a';
+static inline void getc(unsigned char* buf){
+    while(!(*buf = *in));
+    *buf -= 'a';
 }
 
-
 void player_move(unsigned char* can_remove_checker){
-
+    unsigned char move[2]; 
     PrintToTTY("\n--- Player Turn ---\n");
     randomize();
+    _player = 1;
 
     // _random - физический массив, который выводится на экраны
     // dice - фактический массив, который позволяет нам корректно обрабатывать дубли
@@ -63,7 +56,7 @@ void player_move(unsigned char* can_remove_checker){
     }
 
     while (dice_count){
-        unsigned char move[2];
+        // static unsigned char move[2];
         PrintToTTY("\nMoves left: ");
         *(char*)TTY = dice_count + '0'; 
 
@@ -71,14 +64,17 @@ void player_move(unsigned char* can_remove_checker){
         PrintToTTY("\nfrom (z to pass): ");
         // TODO: При вводе Y - делаем вывод фишки,\ продумать когда начинать предлагать вывести фишку, сверять каждый раз?
         // Проверку делаем через can_remove_checker
-        move[0] = getc();
+        getc(move);
         if (move[0] == 'z' - 'a') {
             PrintToTTY("\nPassed.\n");
             break;
         }
         PrintToTTY("\nto: ");
-        move[1] = getc();
-        _player = 1;
+        getc(move+1);
+        int dbgdist = get_dst(move[0], move[1]);
+        PrintToTTY("\n");
+        *(char*)TTY = dbgdist + '0';
+        PrintToTTY("\nMove validation...");
         if (isMoveValid(move, dice, dice_count, head_can_taken)){
             move_checker(move);
             if (move[0] == 0) head_can_taken--;
@@ -101,8 +97,8 @@ void player_move(unsigned char* can_remove_checker){
         } else {
             PrintToTTY("\nInvalid\n");
         }
-        _player = -1;
     }
+    _player = -1;
 }
 
 char computer_move(){
@@ -117,17 +113,15 @@ int main(){
 
     // init
     _player = 1; 
-    // _amt_of_checkers[1] = 12;
+    _amt_of_checkers[1] = 12;
     _points[1] = 12;
     _colors[0] = 1;
     _player = 0;
-    // _amt_of_checkers[1] = 12;
+    _amt_of_checkers[0] = 12;
     _points[13] = 12;
     _colors[12] = 2;
     _player = -1;
-
     unsigned char can_remove_checker = 0;
-
     while(1){
         player_move(&can_remove_checker);
         computer_move();
