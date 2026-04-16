@@ -42,7 +42,7 @@ char zabor_rule() {
             char found = 0;
             // trying to find opponent chip ahead
             for (int j = 0; j < dst; j++){
-                int curr = i+j;
+                int curr = i+6+j;
                 if (curr >= 24) curr -= 24;
                 if (_colors[curr] == opponent){
                     found = 1;

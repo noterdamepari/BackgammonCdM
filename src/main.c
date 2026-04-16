@@ -131,18 +131,11 @@ int main(){
     _player = 0;
     _amt_of_checkers[0] = 12;
     _points[13] = 12;
-    _player = 1; 
-    for (int i = 14; i < 19;i++){
-        _points[i] = 1;
-        _colors[i-1] = 1;
-    }
-    _points[15] = 2;
-    _colors[12] = 2;
     _player = -1;
     unsigned char can_remove_checker = 0;
     // while(1){
         player_move(&can_remove_checker);
-        // computer_move();
+        computer_move();
     // }
 }
 
