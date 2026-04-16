@@ -19,4 +19,4 @@ void PrintToTTY(char* string);
 char zabor_rule();
 char isMoveValid(unsigned char* move, unsigned char* dice, int dice_count, int head_taken);
 char isRemoveValid();
-int get_dst(char from, char to);
+int get_dst(char from, char to, int player);

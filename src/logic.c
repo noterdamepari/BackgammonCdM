@@ -1,9 +1,9 @@
 #include "header.h"
 
 
-int get_dst(char from, char to) {
+int get_dst(char from, char to, int player) {
     int dst = to - from;
-    if (_player == 1) {
+    if (player == 1) {
         // Игрок идет от 0 до 23
         if (dst <= 0) return -1;
         return dst;
@@ -15,13 +15,14 @@ int get_dst(char from, char to) {
     }
 }
 
-char zabor_rule(){
+char zabor_rule() {
     char opponent = (_player == 1) ? 2 : 1;
+    // char opp_head = (opponent == 1) ? 0 : 12;
+    char opp_finish = (opponent == 2) ? 11 : 23;
 
     for (int i = 0; i < 24; i++) {
         int count = 0;
 
-        // считаем подряд 6 точек
         for (int j = 0; j < 6; j++) {
             int idx = i + j;
             if (idx >= 24) idx -= 24;
@@ -33,33 +34,36 @@ char zabor_rule(){
         }
 
         if (count == 6) {
-            int found = 0;
-
-            for (int k = 0; k < 24; k++) {
-                int idx;
-
-                if (_player == 1){
-                    idx = i + 6 + k;
-                    if (idx >= 24) idx -= 24;
-                    if (idx >= 24) idx -= 24;
-                }
-                else{
-                    idx = i - 1 - k;
-                    if (idx < 0) idx += 24;
-                    if (idx < 0) idx += 24;
-                }
-                if (_colors[idx] == opponent) {
+            // dbg
+            PrintToTTY("\nfind ");
+            *(char*)TTY = i + 'a';
+            //
+            char dst = get_dst(i+6, opp_finish, 0);
+            char found = 0;
+            // trying to find opponent chip ahead
+            for (int j = 0; j < dst; j++){
+                int curr = i+j;
+                if (curr >= 24) curr -= 24;
+                if (_colors[curr] == opponent){
                     found = 1;
                     break;
                 }
             }
+
+            if (!found) { // check if opponent already remove chips
+                if (_amt_of_checkers[!_player] < 12) { 
+                    found = 1;
+                }
+            }
+
             if (!found) {
                 PrintToTTY("\nErr: Illegal block (6 in row)\n");
-                return 0;
+                return 0; 
             }
         }
     }
-    return 1;
+    
+    return 1; 
 }
 
 char isMoveValid(unsigned char* move, unsigned char* dice, int dice_count, int head_can_taken){
@@ -74,7 +78,7 @@ char isMoveValid(unsigned char* move, unsigned char* dice, int dice_count, int h
         return 0;
     }
     
-    int dist = get_dst(move[0], move[1]); // проверка на валидность по дистанции
+    int dist = get_dst(move[0], move[1], _player); // проверка на валидность по дистанции
     if (dist <= 0 || dist > 6) {
         PrintToTTY("\nErr: Invalid dist\n");
         return 0;

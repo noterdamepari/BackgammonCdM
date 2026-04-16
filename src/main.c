@@ -77,7 +77,7 @@ void player_move(unsigned char* can_remove_checker){
         }
         PrintToTTY("\nto: ");
         move[1] = getc();
-        int dbgdist = get_dst(move[0], move[1]);
+        int dbgdist = get_dst(move[0], move[1], _player);
         PrintToTTY("\n");
         *(char*)TTY = dbgdist + '0';
         PrintToTTY("\nMove validation...");
@@ -90,7 +90,7 @@ void player_move(unsigned char* can_remove_checker){
                 PrintToTTY("\nOk...");
                 if (move[0] == 0) head_can_taken--;
 
-                int dist = get_dst(move[0], move[1]);
+                int dist = get_dst(move[0], move[1], _player);
                 for(int i = 0; i < dice_count; i++){
                     if (dice[i] == dist) {
                         dice[i] = dice[dice_count - 1]; 
