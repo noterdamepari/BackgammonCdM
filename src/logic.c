@@ -41,9 +41,9 @@ char zabor_rule() {
             char dst = get_dst(i+6, opp_finish, 0);
             char found = 0;
             // trying to find opponent chip ahead
-            for (int j = 0; j < dst; j++){
+            for (int j = 0; j <= dst; j++){
                 int curr = i+6+j;
-                if (curr >= 24) curr -= 24;
+                while (curr >= 24) curr -= 24;
                 if (_colors[curr] == opponent){
                     found = 1;
                     break;
