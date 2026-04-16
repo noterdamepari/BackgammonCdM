@@ -22,10 +22,16 @@ void randomize(){
     }
 }
 
-static inline void getc(unsigned char* buf){
-    while(!(*buf = *in));
-    *buf -= 'a';
+static unsigned char inline getc(){
+    unsigned char chr;
+    while(1) {
+        chr = *in;
+        if (chr >= 'a' && chr <= 'z') {
+            return chr - 'a';
+        }
+    }
 }
+
 
 void player_move(unsigned char* can_remove_checker){
     unsigned char move[2]; 
@@ -64,13 +70,13 @@ void player_move(unsigned char* can_remove_checker){
         PrintToTTY("\nfrom (z to pass): ");
         // TODO: При вводе Y - делаем вывод фишки,\ продумать когда начинать предлагать вывести фишку, сверять каждый раз?
         // Проверку делаем через can_remove_checker
-        getc(move);
+        move[0] = getc();
         if (move[0] == 'z' - 'a') {
             PrintToTTY("\nPassed.\n");
             break;
         }
         PrintToTTY("\nto: ");
-        getc(move+1);
+        move[1] = getc();
         int dbgdist = get_dst(move[0], move[1]);
         PrintToTTY("\n");
         *(char*)TTY = dbgdist + '0';
