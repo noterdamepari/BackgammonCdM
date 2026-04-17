@@ -1,11 +1,14 @@
 ### SECTION: .text
+
+
+memset, memcpy: ext
 rsect _src_main_c_1804289383
 
 PrintToTTY: ext
 isMoveValid: ext
 move_checker: ext
 _random: ext
-_stateReg: ext
+_player: ext
 _points: ext
 _colors: ext
 
@@ -17,6 +20,8 @@ mend
 
 xorshift16>                             # -- Begin function xorshift16
 # %bb.0:                                # %entry
+	push	fp
+	ldsp	fp
 	ldi	r1, state
 	ldw	r1, r0
 	shl	r0, r2, 7
@@ -27,6 +32,7 @@ xorshift16>                             # -- Begin function xorshift16
 	shl	r0, r2, 8
 	xor r2, r0, r0
 	stw	r1, r0
+	pop	fp
 	rts
                                         # -- End function
 randomize>                              # -- Begin function randomize
@@ -150,57 +156,73 @@ __LBB2_7:                               # %randomize.exit
 	stb	r1, r5
 	stw	r0, r3
 __LBB2_8:                               # %if.end
+	addsp	-8
 	ldi	r0, __L.str
 	jsr	PrintToTTY
+	addsp	8
+	addsp	-8
 	ldi	r0, __L.str.1
 	jsr	PrintToTTY
+	addsp	8
 	ldi	r6, in
 	ldw	r6, r0
-__LBB2_9:                               # %while.cond
+__LBB2_9:                               # %while.cond.i
                                         # =>This Inner Loop Header: Depth=1
 	ldb	r0, r5
 	cmp	r5, r4
 	beq	__LBB2_9
 	br	__LBB2_10
-__LBB2_10:                              # %while.end
+__LBB2_10:                              # %getc.exit
+	addsp	-8
 	ldi	r0, __L.str.2
 	jsr	PrintToTTY
+	addsp	8
 	ldw	r6, r1
-__LBB2_11:                              # %while.cond3
+__LBB2_11:                              # %while.cond.i9
                                         # =>This Inner Loop Header: Depth=1
 	ldb	r1, r0
 	cmp	r0, r4
 	beq	__LBB2_11
 	br	__LBB2_12
-__LBB2_12:                              # %while.end7
+__LBB2_12:                              # %getc.exit12
+	ldi	r1, _player
+	ldi	r2, 1
+	stb	r1, r2
 	ldi	r1, -97
 	add r0, r1, r0
 	add r5, r1, r1
 	ldi	r2, 255
 	and r1, r2, r5
 	and r0, r2, r6
+	addsp	-8
+	ldi	r2, 2
 	movens	r5, r0
 	movens	r6, r1
+	movens	r4, r3
 	jsr	isMoveValid
+	addsp	8
 	cmp	r0, r4
 	beq	__LBB2_14
 	br	__LBB2_13
-__LBB2_13:                              # %if.then12
-	ldi	r1, _stateReg
-	ldi	r0, 1
-	stb	r1, r0
+__LBB2_13:                              # %if.then2
+	addsp	-8
+	ldi	r2, 2
 	movens	r5, r0
 	movens	r6, r1
+	movens	r4, r3
 	jsr	move_checker
-	ldi	r0, 255
-	ldi	r1, _stateReg
-	stb	r1, r0
+	addsp	8
 	br	__LBB2_15
 __LBB2_14:                              # %if.else
+	addsp	-8
 	ldi	r0, __L.str.3
 	jsr	PrintToTTY
+	addsp	8
 	ldi	r4, 1
 __LBB2_15:                              # %cleanup
+	ldi	r0, _player
+	ldi	r1, 255
+	stb	r0, r1
 	movens	r4, r0
 	lsw	r6, -6                          # 2-byte Folded Reload
 	lsw	r5, -4                          # 2-byte Folded Reload
@@ -263,10 +285,12 @@ __LBB3_6:                               # %randomize.exit
 	ldi	r1, _random+1
 	stb	r1, r3
 	stw	r0, r2
-	ldi	r5, _stateReg
+	ldi	r5, _player
 	stb	r5, r4
+	addsp	-8
 	ldi	r0, __L.str.4
 	jsr	PrintToTTY
+	addsp	8
 	ldi	r0, 255
 	stb	r5, r0
 	movens	r4, r0
@@ -284,19 +308,19 @@ main>                                   # -- Begin function main
 	ssw	r4, -2                          # 2-byte Folded Spill
 	ssw	r5, -4                          # 2-byte Folded Spill
 	ssw	r6, -6                          # 2-byte Folded Spill
-	ldi	r2, _stateReg
+	ldi	r2, _player
 	ldi	r4, 1
 	stb	r2, r4
 	ldi	r0, _points+2
 	ldi	r1, 11
 	stw	r0, r1
-	ldi	r0, _colors+1
+	ldi	r0, _colors
 	stb	r0, r4
 	ldi	r5, 0
 	stb	r2, r5
 	ldi	r0, _points+26
 	stw	r0, r1
-	ldi	r0, _colors+13
+	ldi	r0, _colors+12
 	ldi	r1, 2
 	stb	r0, r1
 	ldi	r6, 7
@@ -307,16 +331,20 @@ __LBB4_1:                               # %while.cond.sink.split
                                         #     Child Loop BB4_7 Depth 2
 	ldi	r0, 255
 	stb	r2, r0
+	addsp	-8
 	movens	r5, r0
 	jsr	player_move
+	addsp	8
 	cmp	r0, r5
 	beq	__LBB4_3
 	br	__LBB4_2
 __LBB4_2:                               # %while.cond
                                         #   Parent Loop BB4_1 Depth=1
                                         # =>  This Inner Loop Header: Depth=2
+	addsp	-8
 	movens	r4, r0
 	jsr	player_move
+	addsp	8
 	cmp	r0, r5
 	bne	__LBB4_2
 	br	__LBB4_3
@@ -347,7 +375,7 @@ __LBB4_6:                               # %do.end.i.i
                                         #   in Loop: Header=BB4_1 Depth=1
 	ldi	r2, _random
 	stb	r2, r1
-	ldi	r2, _stateReg
+	ldi	r2, _player
 __LBB4_7:                               # %do.body.1.i.i
                                         #   Parent Loop BB4_1 Depth=1
                                         # =>  This Inner Loop Header: Depth=2
@@ -374,9 +402,11 @@ __LBB4_9:                               # %computer_move.exit
 	ldi	r1, state
 	stw	r1, r0
 	stb	r2, r5
+	addsp	-8
 	ldi	r0, __L.str.4
 	jsr	PrintToTTY
-	ldi	r2, _stateReg
+	ldi	r2, _player
+	addsp	8
 	br	__LBB4_1
                                         # -- End function
 ### SECTION: .data
@@ -384,7 +414,7 @@ in>                                     # @in
 	dc	57006
 
 state:                                  # @state
-	dc	52679                           # 0xcdc7
+	dc	57123                           # 0xdf23
 
 ### SECTION: .rodata.str1.1
 __L.str:                                # @.str

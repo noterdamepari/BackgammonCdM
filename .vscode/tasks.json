@@ -13,7 +13,25 @@
 				"--debug",
 				"${workspaceFolder}/build/out.dbg.json",
 				"${workspaceFolder}/run.asm", 
-				"${workspaceFolder}/app/*.asm" 
+				"${workspaceFolder}/app/main.asm", 
+				"${workspaceFolder}/app/graphics.asm",
+				"${workspaceFolder}/app/logic.asm" 
+			],
+		},
+		{
+			"label": "Compile tests",
+			"type": "shell",
+			"command": ".env/bin/cocas",
+			"args": [
+				"--target",
+				"cdm16",
+				"-o",
+				"${workspaceFolder}/build/out.img",
+				"--debug",
+				"${workspaceFolder}/build/out.dbg.json",
+				"${workspaceFolder}/run.asm", 
+				"${workspaceFolder}/app/graphics.asm",
+				"${workspaceFolder}/app/test.asm" 
 			],
 		}
 	]
