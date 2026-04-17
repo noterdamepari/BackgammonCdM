@@ -1,7 +1,7 @@
 {
     "configurations": [
         {
-            "name": "Dbg CdM-16 with VN arch",
+            "name": "Run",
             "type": "cdm",
             "request": "launch",
             "address": "ws://localhost:7001",
@@ -13,6 +13,20 @@
                 "debug": "${workspaceFolder}${/}build${/}out.dbg.json"
             },
             "preLaunchTask": "Compile CdM-16"
+        },
+        {
+            "name": "Run tests",
+            "type": "cdm",
+            "request": "launch",
+            "address": "ws://localhost:7001",
+            "target": "cdm16",
+            "architecture": "vonNeumann",
+            "environment": "emulator",
+            "artifacts": {
+                "image": "${workspaceFolder}${/}build${/}out.img",
+                "debug": "${workspaceFolder}${/}build${/}out.dbg.json"
+            },
+            "preLaunchTask": "Compile tests"
         }
     ]
 }
