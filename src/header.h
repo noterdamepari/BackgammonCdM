@@ -15,8 +15,11 @@ extern volatile char _random[4];
 extern volatile char _amt_of_checkers[2];
 
 char move_checker(unsigned char* move);
+char remove_checker(unsigned char from);
 void PrintToTTY(char* string);
 char zabor_rule();
 char isMoveValid(unsigned char* move, unsigned char* dice, int dice_count, int head_taken);
 char isRemoveValid();
+char is_all_in_home();
+char validate_bear_off(unsigned char from, unsigned char* dice, int dice_count);
 int get_dst(char from, char to, int player);
