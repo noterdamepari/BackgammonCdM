@@ -52,7 +52,7 @@ char zabor_rule() {
             }
 
             if (!found) { // check if opponent already remove chips
-                if (_amt_of_checkers[!_player] < 12) { 
+                if (_amt_of_checkers[!_player] < 11) { 
                     found = 1;
                 }
             }
@@ -68,8 +68,15 @@ char zabor_rule() {
 }
 
 char isMoveValid(unsigned char* move, unsigned char* dice, int dice_count, int head_can_taken){
-    if (_colors[move[0]] != _player || !_points[move[0]+1]){
+    int color = (_player == 1) ? 1 : 2;
+    if (_colors[move[0]] != color || !_points[move[0]+1]){
         PrintToTTY("\nErr: Not your checker!\n");
+        *(char*)TTY = color + '0';
+        PrintToTTY("\n");
+        *(char*)TTY = _player + '0';
+        PrintToTTY("\n");
+        *(char*)TTY = _colors[move[0]] + '0';
+        PrintToTTY("\n");
         return 0;
     } // проверяем старт, можем ли мы вообще оттуда ходить
     
@@ -110,27 +117,77 @@ char isMoveValid(unsigned char* move, unsigned char* dice, int dice_count, int h
 char is_all_in_home() {
     if (_player == 1) {
         _player = -1;
-        // Дом Игрока 1 - это точки 18..23 (s, t, u, v, w, x).
-        // Проверяем всё, что до 18.
         for (int i = 1; i < 19; i++) {
-            if (_colors[i-1] == 1 && _points[i] > 0) return 0;
+            if (_colors[i-1] == 1 && _points[i] > 0){
+                _player = 1;
+                return 0;
+            } 
         }
         _player = 1;
     } else {
         _player = -1;
-        // Дом Компьютера - это точки 6..11 (g, h, i, j, k, l).
-        // Проверяем его путь до дома: 12..23 и 0..5
         for (int i = 12; i < 24; i++) {
-            if (_colors[i] == 2 && _points[i + 1] > 0) return 0;
+            if (_colors[i] == 2 && _points[i + 1] > 0){
+                _player = 0;
+                return 0;
+            } 
         }
         for (int i = 0; i < 6; i++) {
-            if (_colors[i] == 2 && _points[i + 1] > 0) return 0;
+            if (_colors[i] == 2 && _points[i + 1] > 0){
+                _player = 0;
+                return 0;
+            } 
         }
         _player = 0;
     }
-    return 1; // Все дома!
+    return 1; // all in home
 }
 
+char validate_bear_off(unsigned char from, unsigned char* dice, int dice_count) {
+    if (_colors[from] != _player || _points[from + 1] == 0) {
+        PrintToTTY("\nErr: Not your checker!\n");
+        return 0;
+    }
 
-char isRemoveValid();
-// TODO: Вывод фишек
+    // get dst
+    int dst = (_player == 1) ? (24 - from) : (12 - from);
+
+
+    // find dice
+    for (int i = 0; i < dice_count; i++) {
+        if (dice[i] == dst) {
+            return dst; // return dice
+        }
+    }
+
+    // check checkers behind
+    char checkers_behind = 0;
+    int home_start = (_player == 1) ? 18 : 6;
+
+    int player = _player;
+    _player = -1;
+    
+    for (int i = home_start; i < from; i++) {
+        if (_colors[i] == player && _points[i + 1] > 0) {
+            checkers_behind = 1;
+            break;
+        }
+    }
+
+    _player = player;
+    // senior dice rule
+    if (!checkers_behind) {
+        int best_dice = 7;
+        for (int i = 0; i < dice_count; i++) {
+            if (dice[i] > dst && dice[i] < best_dice) {
+                best_dice = dice[i];
+            }
+        }
+        if (best_dice != 7) {
+            return best_dice; 
+        }
+    }
+
+    PrintToTTY("\nErr: No valid dice to bear off\n");
+    return 0;
+}

@@ -39,11 +39,12 @@ void player_move(unsigned char* can_remove_checker){
     randomize();
     _player = 1;
 
-    if (is_all_in_home() && !(*can_remove_checker)){
-        PrintToTTY ("\nDBG: all checkers in home\nnow you bear off them");
-        *can_remove_checker = 1;
-    } 
-    else PrintToTTY ("\nDBG: not in home");
+    if (!(*can_remove_checker)){
+        if (is_all_in_home()){
+            PrintToTTY ("\nDBG: all checkers in home\nnow you bear off them");
+            *can_remove_checker = 1;
+        } 
+    }
 
     // _random - физический массив, который выводится на экраны
     // dice - фактический массив, который позволяет нам корректно обрабатывать дубли
@@ -74,46 +75,74 @@ void player_move(unsigned char* can_remove_checker){
 
         // * fetch coordinates
         PrintToTTY("\nfrom (z to pass): ");
-        // TODO: При вводе Y - делаем вывод фишки,\ продумать когда начинать предлагать вывести фишку, сверять каждый раз?
         // Проверку делаем через can_remove_checker
         move[0] = getc();
         if (move[0] == 'z' - 'a') {
             PrintToTTY("\nPassed.\n");
             break;
         }
-        PrintToTTY("\nto: ");
-        move[1] = getc();
-        int dbgdist = get_dst(move[0], move[1], _player);
-        PrintToTTY("\n");
-        *(char*)TTY = dbgdist + '0';
-        PrintToTTY("\nMove validation...");
-        if (isMoveValid(move, dice, dice_count, head_can_taken)){
-            move_checker(move);
-            if (!zabor_rule()){
-                unsigned char undomove[2] = {move[1], move[0]};
-                move_checker(undomove);
-            } else {
-                PrintToTTY("\nOk...");
-                if (move[0] == 0) head_can_taken--;
 
-                int dist = get_dst(move[0], move[1], _player);
+        if (*can_remove_checker) PrintToTTY("\nto: (y to bear off) ");
+        else PrintToTTY("\nto: ");
+        move[1] = getc();
+
+        if (move[1] == 24){
+            if (!(*can_remove_checker)){
+                PrintToTTY("You cannot bear off now");
+                continue;
+            } else{
+                int used_dice = validate_bear_off(move[0], dice, dice_count);
+                if(!used_dice) continue;
+                remove_checker(move[0]);
                 for(int i = 0; i < dice_count; i++){
-                    if (dice[i] == dist) {
+                    if (dice[i] == used_dice) {
                         dice[i] = dice[dice_count - 1]; 
                         dice_count--;
                         break;
                     }
-                }
-
-                if (d1 != d2) {
-                    if (_random[0] == dist) _random[0] = 0;
-                    else if (_random[1] == dist) _random[1] = 0;
-                } else {
-                    if (dice_count == 2) _random[1] = 0;
+                    if (d1 != d2) {
+                        if (_random[0] == used_dice) _random[0] = 0;
+                        else if (_random[1] == used_dice) _random[1] = 0;
+                    } else {
+                        if (dice_count == 2) _random[1] = 0;
+                    }
                 }
             }
         } else {
-            PrintToTTY("\nInvalid\n");
+            // normal move, when remove_checker down
+            int dbgdist = get_dst(move[0], move[1], _player);
+            PrintToTTY("\nDBG DIST - ");
+            *(char*)TTY = dbgdist + '0';
+            PrintToTTY("\nMove validation...");
+
+            if (isMoveValid(move, dice, dice_count, head_can_taken)){
+                move_checker(move);
+                if (!zabor_rule()){
+                    unsigned char undomove[2] = {move[1], move[0]};
+                    move_checker(undomove);
+                } else {
+                    PrintToTTY("\nOk...");
+                    if (move[0] == 0) head_can_taken--;
+
+                    int dist = get_dst(move[0], move[1], _player);
+                    for(int i = 0; i < dice_count; i++){
+                        if (dice[i] == dist) {
+                            dice[i] = dice[dice_count - 1]; 
+                            dice_count--;
+                            break;
+                        }
+                    }
+
+                    if (d1 != d2) {
+                        if (_random[0] == dist) _random[0] = 0;
+                        else if (_random[1] == dist) _random[1] = 0;
+                    } else {
+                        if (dice_count == 2) _random[1] = 0;
+                    }
+                }
+            } else {
+                PrintToTTY("\nInvalid\n");
+            }
         }
     }
     _player = -1;
@@ -132,8 +161,8 @@ int main(){
     // init
     _player = 1; 
     _amt_of_checkers[1] = 11;
-    _points[23] = 11;
-    _colors[22] = 1;
+    _points[1] = 11;
+    _colors[0] = 1;
     _player = 0;
     _amt_of_checkers[0] = 11;
     _points[13] = 11;
@@ -144,7 +173,16 @@ int main(){
     // game loop
     while(1){
         player_move(&can_remove_checker);
+        if (!_amt_of_checkers[1]) {
+            PrintToTTY("\nPlayer win!");
+            break;
+        }
         computer_move();
+        if (!_amt_of_checkers[0]) {
+            PrintToTTY("\nComputer win!");
+            break;
+        }
     }
+
 }
 

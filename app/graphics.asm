@@ -65,8 +65,7 @@ remove_checker>                         # -- Begin function remove_checker
 # %bb.0:                                # %entry
 	push	fp
 	ldsp	fp
-	ldb	r0, r1
-	shl	r1, r1, 1
+	shl	r0, r1, 1
 	ldi	r2, _points+2
 	ldw	r1, r2, r3
 	sub	r3, 1
@@ -76,7 +75,6 @@ remove_checker>                         # -- Begin function remove_checker
 	bne	__LBB1_2
 	br	__LBB1_1
 __LBB1_1:                               # %if.then
-	ldb	r0, r0
 	ldi	r2, _colors
 	stb	r0, r2, r1
 __LBB1_2:                               # %if.end
