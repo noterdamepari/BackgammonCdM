@@ -9,6 +9,7 @@ int get_dst(char from, char to, int player) {
         return dst;
     } else {
         // Компьютер идет 12..23, затем 0..11
+        if (from < 12 && to >= 12) return -1;
         if (dst < 0) dst += 24; 
         if (dst == 0) return -1;
         return dst;
@@ -104,6 +105,30 @@ char isMoveValid(unsigned char* move, unsigned char* dice, int dice_count, int h
     } 
 
     return 1;
+}
+
+char is_all_in_home() {
+    if (_player == 1) {
+        _player = -1;
+        // Дом Игрока 1 - это точки 18..23 (s, t, u, v, w, x).
+        // Проверяем всё, что до 18.
+        for (int i = 1; i < 19; i++) {
+            if (_colors[i-1] == 1 && _points[i] > 0) return 0;
+        }
+        _player = 1;
+    } else {
+        _player = -1;
+        // Дом Компьютера - это точки 6..11 (g, h, i, j, k, l).
+        // Проверяем его путь до дома: 12..23 и 0..5
+        for (int i = 12; i < 24; i++) {
+            if (_colors[i] == 2 && _points[i + 1] > 0) return 0;
+        }
+        for (int i = 0; i < 6; i++) {
+            if (_colors[i] == 2 && _points[i + 1] > 0) return 0;
+        }
+        _player = 0;
+    }
+    return 1; // Все дома!
 }
 
 

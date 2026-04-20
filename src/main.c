@@ -39,6 +39,12 @@ void player_move(unsigned char* can_remove_checker){
     randomize();
     _player = 1;
 
+    if (is_all_in_home() && !(*can_remove_checker)){
+        PrintToTTY ("\nDBG: all checkers in home\nnow you bear off them");
+        *can_remove_checker = 1;
+    } 
+    else PrintToTTY ("\nDBG: not in home");
+
     // _random - физический массив, который выводится на экраны
     // dice - фактический массив, который позволяет нам корректно обрабатывать дубли
 
@@ -125,17 +131,20 @@ int main(){
 
     // init
     _player = 1; 
-    _amt_of_checkers[1] = 12;
-    _points[1] = 12;
-    _colors[0] = 1;
+    _amt_of_checkers[1] = 11;
+    _points[23] = 11;
+    _colors[22] = 1;
     _player = 0;
-    _amt_of_checkers[0] = 12;
-    _points[13] = 12;
+    _amt_of_checkers[0] = 11;
+    _points[13] = 11;
+    _colors[12] = 2;
     _player = -1;
     unsigned char can_remove_checker = 0;
-    // while(1){
+
+    // game loop
+    while(1){
         player_move(&can_remove_checker);
         computer_move();
-    // }
+    }
 }
 
