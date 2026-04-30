@@ -1,4 +1,4 @@
-#include "header.h"
+#include "backgammon.h"
 
 
 int get_dst(char from, char to, int player) {
@@ -18,6 +18,7 @@ int get_dst(char from, char to, int player) {
 
 char zabor_rule() {
     char opponent = (_player == 1) ? 2 : 1;
+    char color = (_player == 1) ? 1 : 2;
     // char opp_head = (opponent == 1) ? 0 : 12;
     char opp_finish = (opponent == 2) ? 11 : 23;
 
@@ -28,7 +29,7 @@ char zabor_rule() {
             int idx = i + j;
             if (idx >= 24) idx -= 24;
 
-            if (_colors[idx] == _player)
+            if (_colors[idx] == color)
                 count++;
             else
                 break;

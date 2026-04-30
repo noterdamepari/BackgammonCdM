@@ -1,5 +1,4 @@
-#include "header.h"
-volatile char* in = (char*)KEYBOARD;
+#include "backgammon.h"
 
 static unsigned int state = 57123;
 
@@ -22,15 +21,6 @@ void randomize(){
     }
 }
 
-static unsigned char inline getc(){
-    unsigned char chr;
-    while(1) {
-        chr = *in;
-        if (chr >= 'a' && chr <= 'z') {
-            return chr - 'a';
-        }
-    }
-}
 
 
 void player_move(unsigned char* can_remove_checker){
@@ -148,13 +138,6 @@ void player_move(unsigned char* can_remove_checker){
     _player = -1;
 }
 
-char computer_move(){
-    randomize();
-    _player = 0;
-    PrintToTTY("\n--- Computer Turn ---\n");
-    _player = -1;
-    return 0;
-}
 
 int main(){
 
@@ -168,16 +151,17 @@ int main(){
     _points[13] = 11;
     _colors[12] = 2;
     _player = -1;
-    unsigned char can_remove_checker = 0;
+    unsigned char rmv_chck = 0;
+    unsigned char ai_rmv_chck = 0;
 
     // game loop
     while(1){
-        player_move(&can_remove_checker);
+        player_move(&rmv_chck);
         if (!_amt_of_checkers[1]) {
             PrintToTTY("\nPlayer win!");
             break;
         }
-        computer_move();
+        computer_move(&ai_rmv_chck);
         if (!_amt_of_checkers[0]) {
             PrintToTTY("\nComputer win!");
             break;

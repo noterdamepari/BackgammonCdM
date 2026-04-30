@@ -1,8 +1,4 @@
 #pragma once 
-#define int16_t int
-#define int8_t char
-#define uint16_t unsigned int
-#define uint8_t unsigned char
 
 #define KEYBOARD 0xdeae
 #define TTY 0xdeb0
@@ -23,4 +19,6 @@ char isRemoveValid();
 char is_all_in_home();
 char validate_bear_off(unsigned char from, unsigned char* dice, int dice_count);
 int get_dst(char from, char to, int player);
-unsigned char inline getc();
+void randomize();
+void computer_move(unsigned char* can_remove_checker);
+unsigned char getc();
