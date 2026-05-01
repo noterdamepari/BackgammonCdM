@@ -72,31 +72,25 @@ char zabor_rule() {
 char isMoveValid(unsigned char* move, unsigned char* dice, int dice_count, int head_can_taken){
     int color = (_player == 1) ? 1 : 2;
     if (_colors[move[0]] != color || !_points[move[0]+1]){
-        PrintToTTY("\nErr: Not your checker!\n");
-        *(char*)TTY = color + '0';
-        PrintToTTY("\n");
-        *(char*)TTY = _player + '0';
-        PrintToTTY("\n");
-        *(char*)TTY = _colors[move[0]] + '0';
-        PrintToTTY("\n");
+        if (color == 1) PrintToTTY("\nErr: Not your checker!\n");
         return 0;
     } // проверяем старт, можем ли мы вообще оттуда ходить
     
     char opponent = (_player == 1) ? 2 : 1; // чекаем занято ли противником место куда идем
     if (_colors[move[1]] == opponent) {
-        PrintToTTY("\nErr: Point captured by opponent!\n");
+        if (color == 1) PrintToTTY("\nErr: Point captured by opponent!\n");
         return 0;
     }
     
     int dist = get_dst(move[0], move[1], _player); // проверка на валидность по дистанции
     if (dist <= 0 || dist > 6) {
-        PrintToTTY("\nErr: Invalid dist\n");
+        if (color == 1) PrintToTTY("\nErr: Invalid dist\n");
         return 0;
     }
 
     char head_pos = (_player == 1) ? 0 : 12; // проверяем правило головы
     if (move[0] == head_pos && head_can_taken == 0) {
-        PrintToTTY("\nErr: Head rule\n");
+        if (color == 1) PrintToTTY("\nErr: Head rule\n");
         return 0;
     } 
     // проверяем валидность хода, если не нашли кубик с длинной хода, то выходим
@@ -109,7 +103,7 @@ char isMoveValid(unsigned char* move, unsigned char* dice, int dice_count, int h
         }
     }
     if (!can_move) { 
-        PrintToTTY("\nErr: Dice doesn`t exists\n");
+        if (color == 1) PrintToTTY("\nErr: Dice doesn`t exists\n");
         return 0;
     } 
 

@@ -117,6 +117,11 @@ void computer_move(unsigned char* can_remove_checker) {
             }
         }
 
+        if (bst_score == -1) {
+            PrintToTTY("\nComputer passed.");
+            break;
+        }
+
         unsigned char best_move[2] = {bst_from, bst_to};
         if (best_is_bear_off){
             remove_checker(bst_from);
