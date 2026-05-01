@@ -61,10 +61,10 @@ void computer_move(unsigned char* can_remove_checker) {
         int bst_score = -1;
         char bst_from = -1;
         char bst_to = -1;
-        int bst_die_idx = -1;
+        int bst_dice_idx = -1;
         
         char best_is_bear_off = 0;
-        int die_used_for_bear_off = 0;
+        int dice_for_bear_off = 0;
 
         for (int i = 0; i < dice_count; i++) {
             int curr = dice[i];
@@ -79,8 +79,10 @@ void computer_move(unsigned char* can_remove_checker) {
                     if (to >= 24) to -= 24;
                 } else {
                     if (to >= 12) {
-                        to = 24;
-                        is_bear_off = 1;
+                        if (*can_remove_checker){
+                            to = 24;
+                            is_bear_off = 1;
+                        } else continue;
                     }
                 }
 
@@ -88,38 +90,57 @@ void computer_move(unsigned char* can_remove_checker) {
                 move[1] = to;
 
                 
-                if (is_bear_off) {
-                    if (!(*can_remove_checker)) continue; // Выбрасывать еще нельзя
-                    
-                    int used_die = validate_bear_off(from, dice, dice_count);
-                    if (used_die) {
+                if (is_bear_off) { 
+                    int used_dice = validate_bear_off(from, dice, dice_count);
+                    if (used_dice) {
                         int score = evaluate_move(from, to, 1);
                         if (score > bst_score) {
                             bst_score = score; bst_from = from; bst_to = to; 
-                            bst_die_idx = i; best_is_bear_off = 1;
-                            die_used_for_bear_off = used_die;
+                            bst_dice_idx = i; best_is_bear_off = 1;
+                            dice_for_bear_off = used_dice;
                         }
                     }
                 } else {
+
+                    int score = evaluate_move(from, to, 0);
+                    if (score <= bst_score) continue;
                     if (isMoveValid(move, dice, dice_count, head_can_taken)) {
                         move_checker(move);
                         if (zabor_rule()) {
-                            int score = evaluate_move(from, to, 0);
-                            if (score > bst_score) {
-                                bst_score = score; bst_from = from; bst_to = to; 
-                                bst_die_idx = i; best_is_bear_off = 0;
-                            }
+                            bst_score = score; bst_from = from; bst_to = to; 
+                            bst_dice_idx = i; best_is_bear_off = 0;
                         } 
+                        unsigned char undomove[2] = {to, from};
+                        move_checker(undomove); // Откатываем назад
                     }
-                    unsigned char undomove[2] = {to, from};
-                    move_checker(undomove); // Откатываем назад
                 }
             }
         }
-        *(char*)TTY = bst_score + '0';
-        PrintToTTY("\n");
+
+        unsigned char best_move[2] = {bst_from, bst_to};
+        if (best_is_bear_off){
+            remove_checker(bst_from);
+            for (int i = 0; i < dice_count; i++) {
+                if (dice[i] == dice_for_bear_off) {
+                    dice[i] = dice[dice_count - 1]; 
+                    dice_count--;
+                    break;
+                }
+            }
+        } else {
+            move_checker(best_move);
+            if (bst_from == 12) head_can_taken--; // Сняли с головы
+            int dist = get_dst(bst_from, bst_to, _player);
+            for(int i = 0; i < dice_count; i++){
+                if (dice[i] == dist) {
+                    dice[i] = dice[dice_count - 1]; 
+                    dice_count--;
+                    break;
+                }
+            }
+        }
         *(char*)TTY = bst_from + 'a';
-        PrintToTTY("\n");
+        PrintToTTY(" -> ");
         *(char*)TTY = bst_to + 'a';
         PrintToTTY("\n");
     }
