@@ -1,7 +1,4 @@
 ### SECTION: .text
-
-
-memset, memcpy: ext
 rsect _src_logic_c_1804289383
 
 PrintToTTY: ext
@@ -1039,7 +1036,7 @@ __LBB3_75:                              # %return
 	stb	r1, r2
 	lsw	r5, -4                          # 2-byte Folded Reload
 	lsw	r4, -2                          # 2-byte Folded Reload
-	addsp	10
+	addsp	4
 	pop	fp
 	rts
                                         # -- End function

@@ -132,6 +132,12 @@ void computer_move(unsigned char* can_remove_checker) {
                     break;
                 }
             }
+            if (d1 != d2) {
+                if (_random[0] == dice_for_bear_off) _random[0] = 0;
+                else if (_random[1] == dice_for_bear_off) _random[1] = 0;
+            } else {
+                if (dice_count == 2) _random[1] = 0;
+            }
         } else {
             move_checker(best_move);
             if (bst_from == 12) head_can_taken--; // Сняли с головы
@@ -143,7 +149,14 @@ void computer_move(unsigned char* can_remove_checker) {
                     break;
                 }
             }
+            if (d1 != d2) {
+                if (_random[0] == dist) _random[0] = 0;
+                else if (_random[1] == dist) _random[1] = 0;
+            } else {
+                if (dice_count == 2) _random[1] = 0;
+            }
         }
+
         *(char*)TTY = bst_from + 'a';
         PrintToTTY(" -> ");
         *(char*)TTY = bst_to + 'a';

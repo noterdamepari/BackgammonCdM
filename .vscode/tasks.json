@@ -15,7 +15,8 @@
 				"${workspaceFolder}/run.asm", 
 				"${workspaceFolder}/app/main.asm", 
 				"${workspaceFolder}/app/graphics.asm",
-				"${workspaceFolder}/app/logic.asm" 
+				"${workspaceFolder}/app/logic.asm",
+				"${workspaceFolder}/app/ai.asm" 
 			],
 		},
 		{
