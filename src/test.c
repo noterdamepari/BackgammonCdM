@@ -1,16 +1,5 @@
-#include "header.h"
+#include "backgammon.h"
 volatile char* in = (char*)KEYBOARD;
-
-static unsigned char inline getc(){
-    unsigned char chr;
-    while(1) {
-        chr = *in;
-        if (chr >= 'a' && chr <= 'z') {
-            return chr - 'a';
-        }
-    }
-}
-
 
 int main(){
     PrintToTTY("Decrease simulation speed\nIt will help you to find bugs\nPress any button to start: ");
