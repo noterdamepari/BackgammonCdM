@@ -1,6 +1,6 @@
 #include "backgammon.h"
 
-static unsigned int state = 57123;
+static unsigned int state = 44257;
 
 unsigned int xorshift16() {
     unsigned int x = state;

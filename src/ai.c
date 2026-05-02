@@ -3,21 +3,22 @@
 static int evaluate_move(char from, char to, char is_bear_off) {
     int score = 0;
     
-    if (is_bear_off) {
-        return 1000;
-    }
+    if (is_bear_off) return 1000;
 
-    if (from == 12) {
-        score += 50;
-    }
+    if (from == 12) score += 80;
 
-    if (_colors[to] == 2 && _points[to + 1] > 0) {
-        score += 20;
+    if (_points[to + 1] == 0) {
+        score += 60; 
+
+        if (to >= 0 && to <= 5) score += 40;
     } 
-
-    else if (!_points[to + 1]) {
-        score += 10;
+    else {
+        if (_points[to + 1] >= 2) score -= 60; 
+        else score += 10;
     }
+
+    if (to > 0 && _colors[to - 1] == 2) score += 50;
+    if (to < 23 && _colors[to + 1] == 2) score += 50;
 
     return score;
 }
@@ -61,7 +62,6 @@ void computer_move(unsigned char* can_remove_checker) {
         int bst_score = -1;
         char bst_from = -1;
         char bst_to = -1;
-        int bst_dice_idx = -1;
         
         char best_is_bear_off = 0;
         int dice_for_bear_off = 0;
@@ -96,19 +96,19 @@ void computer_move(unsigned char* can_remove_checker) {
                         int score = evaluate_move(from, to, 1);
                         if (score > bst_score) {
                             bst_score = score; bst_from = from; bst_to = to; 
-                            bst_dice_idx = i; best_is_bear_off = 1;
+                            best_is_bear_off = 1;
                             dice_for_bear_off = used_dice;
                         }
                     }
                 } else {
-
-                    int score = evaluate_move(from, to, 0);
-                    if (score <= bst_score) continue;
                     if (isMoveValid(move, dice, dice_count, head_can_taken)) {
+                        int score = evaluate_move(from, to, 0);
                         move_checker(move);
                         if (zabor_rule()) {
-                            bst_score = score; bst_from = from; bst_to = to; 
-                            bst_dice_idx = i; best_is_bear_off = 0;
+                            if (score > bst_score){
+                                bst_score = score; bst_from = from; bst_to = to; 
+                                best_is_bear_off = 0;
+                            }
                         } 
                         unsigned char undomove[2] = {to, from};
                         move_checker(undomove); // Откатываем назад

@@ -140,7 +140,8 @@ char is_all_in_home() {
 }
 
 char validate_bear_off(unsigned char from, unsigned char* dice, int dice_count) {
-    if (_colors[from] != _player || _points[from + 1] == 0) {
+    int color = (_player == 1) ? 1 : 2;
+    if (_colors[from] != color || _points[from + 1] == 0) {
         PrintToTTY("\nErr: Not your checker!\n");
         return 0;
     }
