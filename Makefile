@@ -5,22 +5,26 @@ GREEN  = \033[1;32m
 BLUE   = \033[1;34m
 RESET  = \033[0m
 
+SRCS := $(wildcard src/*.c)
+ASM := $(SRCS:src/%.c=app/%.asm)
 
-all: app/main.asm app/graphics.asm app/logic.asm app/ai.asm
-	@printf "$(GREEN)✔ Success! Builded with $(CFLAGS)$(RESET)\n"
+all: build
+	@printf "$(GREEN)✔ Success!$(RESET) Builded with $(CFLAGS) to $(BLUE)build/app.img$(RESET)\n"
 
-app/main.asm: src/main.c 
-	@$(CLANG) src/main.c -S $(CFLAGS) -o app/main.asm
-	@printf " - Building $(BLUE)main.asm...$(RESET)\n"
-app/graphics.asm: src/graphics.c
-	@$(CLANG) src/graphics.c -S $(CFLAGS) -o app/graphics.asm
-	@printf " - Building $(BLUE)graphics.asm...$(RESET)\n"
-app/logic.asm: src/logic.c
-	@$(CLANG) src/logic.c -S $(CFLAGS) -o app/logic.asm
-	@printf " - Building $(BLUE)logic.asm...$(RESET)\n"
-app/ai.asm: src/ai.c 
-	@$(CLANG) src/ai.c -S $(CFLAGS) -o app/ai.asm
-	@printf " - Building $(BLUE)ai.asm...$(RESET)\n"
+build: $(ASM)
+	@printf " - Linking to $(BLUE)build/app.img...$(RESET)\n"
+	@cocas -t cdm16 -o build/app.img \
+	app/ai.asm \
+	app/graphics.asm \
+	app/logic.asm \
+	app/main.asm
+
+compile: $(ASM)
+	@printf "$(GREEN)✔ Success!$(RESET) Project compiled\n"
+
+app/%.asm: src/%.c
+	@printf " - Compiling $(BLUE)$<...$(RESET)\n"
+	@$(CLANG) -c $< -S $(CFLAGS) -o $@
 
 opt2: CFLAGS = -Wall -O2
 opt2: all
