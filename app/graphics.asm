@@ -1,4 +1,7 @@
 ### SECTION: .text
+
+
+memset, memcpy: ext
 rsect _src_graphics_c_1804289383
 
 _colors: ext
@@ -44,6 +47,8 @@ __LBB0_2:                               # %if.end
 	shl	r1, r1, 1
 	ldw	r1, r3, r4
 	sub	r4, 1
+	stw	r1, r3, r4
+	cmp	r4, r2
 	stw	r1, r3, r4
 	cmp	r4, r2
 	bne	__LBB0_4
@@ -140,6 +145,7 @@ __LBB3_2:                               # %if.then
 	rts
                                         # -- End function
 ### SECTION: .data
+out>                                    # @out
 out>                                    # @out
 	dc	57008
 

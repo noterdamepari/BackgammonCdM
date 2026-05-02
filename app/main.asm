@@ -1,4 +1,7 @@
 ### SECTION: .text
+
+
+memset, memcpy: ext
 rsect _src_main_c_1804289383
 
 PrintToTTY: ext
@@ -25,6 +28,8 @@ mend
 
 xorshift16>                             # -- Begin function xorshift16
 # %bb.0:                                # %entry
+	push	fp
+	ldsp	fp
 	ldi	r1, state
 	ldw	r1, r0
 	shl	r0, r2, 7
@@ -35,6 +40,7 @@ xorshift16>                             # -- Begin function xorshift16
 	shl	r0, r2, 8
 	xor r2, r0, r0
 	stw	r1, r0
+	pop	fp
 	rts
                                         # -- End function
 randomize>                              # -- Begin function randomize
