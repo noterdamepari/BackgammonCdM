@@ -1,4 +1,5 @@
 CLANG = ./compiler/clang-19
+COCAS = ./.env/bin/cocas
 CFLAGS = -O2
 
 GREEN  = \033[1;32m
@@ -13,7 +14,7 @@ all: build
 
 build: $(ASM)
 	@printf " - Linking to $(BLUE)build/app.img...$(RESET)\n"
-	@cocas -t cdm16 -o build/app.img \
+	@$(COCAS) -t cdm16 -o build/app.img \
 	app/ai.asm \
 	app/graphics.asm \
 	app/logic.asm \
