@@ -85,7 +85,7 @@ __LBB1_2:                               # %if.end
 	ldi	r0, 0
 	rts
                                         # -- End function
-PrintToTTY>                             # -- Begin function PrintToTTY
+print_to_tty>                           # -- Begin function print_to_tty
 # %bb.0:                                # %entry
 	push	fp
 	ldsp	fp

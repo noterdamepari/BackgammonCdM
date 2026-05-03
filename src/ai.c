@@ -25,13 +25,13 @@ static int evaluate_move(char from, char to, char is_bear_off) {
 
 void computer_move(unsigned char* can_remove_checker) {
     unsigned char move[2]; 
-    PrintToTTY("\n--- Computer Turn ---\n");
+    print_to_tty("\n--- Computer Turn ---\n");
     randomize();
     _player = 0;
 
     if (!(*can_remove_checker)){
         if (is_all_in_home()){
-            PrintToTTY ("\nDBG: Computer now can bearing off!");
+            print_to_tty ("\nDBG: Computer now can bearing off!");
             *can_remove_checker = 1;
         } 
     }
@@ -48,7 +48,7 @@ void computer_move(unsigned char* can_remove_checker) {
 
     // * обрабатываем дубль
     if (d1 == d2) {
-        PrintToTTY("\nRolling doubles!!");
+        print_to_tty("\nRolling doubles!!");
         dice[0] = d1; dice[1] = d1; dice[2] = d1; dice[3] = d1;
         dice_count = 4;
         head_can_taken = 2;
@@ -101,7 +101,7 @@ void computer_move(unsigned char* can_remove_checker) {
                         }
                     }
                 } else {
-                    if (isMoveValid(move, dice, dice_count, head_can_taken)) {
+                    if (is_move_valid(move, dice, dice_count, head_can_taken)) {
                         int score = evaluate_move(from, to, 0);
                         move_checker(move);
                         if (zabor_rule()) {
@@ -118,7 +118,7 @@ void computer_move(unsigned char* can_remove_checker) {
         }
 
         if (bst_score == -1) {
-            PrintToTTY("\nComputer passed.");
+            print_to_tty("\nComputer passed.");
             break;
         }
 
@@ -152,15 +152,13 @@ void computer_move(unsigned char* can_remove_checker) {
             if (d1 != d2) {
                 if (_random[0] == dist) _random[0] = 0;
                 else if (_random[1] == dist) _random[1] = 0;
-            } else {
-                if (dice_count == 2) _random[1] = 0;
-            }
+            } else if (dice_count == 2) _random[1] = 0;
         }
 
         *(char*)TTY = bst_from + 'a';
-        PrintToTTY(" -> ");
+        print_to_tty(" -> ");
         *(char*)TTY = bst_to + 'a';
-        PrintToTTY("\n");
+        print_to_tty("\n");
     }
     _player = -1;
 }

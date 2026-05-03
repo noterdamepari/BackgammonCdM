@@ -22,7 +22,7 @@ char remove_checker(unsigned char from){
     return 0;
 }
 
-void PrintToTTY(char* string){
+void print_to_tty(char* string){
     while (*string){
         *out = *string;
         string++;

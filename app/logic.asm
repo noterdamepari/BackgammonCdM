@@ -1,7 +1,7 @@
 ### SECTION: .text
 rsect _src_logic_c_1804289383
 
-PrintToTTY: ext
+print_to_tty: ext
 _player: ext
 _colors: ext
 _amt_of_checkers: ext
@@ -79,14 +79,14 @@ zabor_rule>                             # -- Begin function zabor_rule
 # %bb.1:                                # %entry
 	ldi	r3, 11
 __LBB1_2:                               # %entry
-	ssw	r3, -14                         # 2-byte Folded Spill
 	ldb	r0, r0
 	cmp	r0, r2
-	movens	r2, r4
+	movens	r2, r5
 	beq	__LBB1_4
 # %bb.3:                                # %entry
-	ldi	r4, 2
+	ldi	r5, 2
 __LBB1_4:                               # %entry
+	ssw	r3, -14                         # 2-byte Folded Spill
 	ssw	r1, -12                         # 2-byte Folded Spill
 	cmp	r1, r2
 	ssw	r2, -8                          # 2-byte Folded Spill
@@ -95,237 +95,232 @@ __LBB1_4:                               # %entry
 	ldi	r0, 2
 	ssw	r0, -8                          # 2-byte Folded Spill
 __LBB1_6:                               # %entry
-	ldi	r3, 0
-	movens	r3, r5
-	movens	r3, r6
+	ldi	r0, 0
+	ldi	r3, _colors
+	movens	r0, r6
 __LBB1_7:                               # %for.cond15.preheader
                                         # =>This Loop Header: Depth=1
                                         #     Child Loop BB1_32 Depth 2
-	ldi	r0, _colors
-	ldsb	r6, r0, r0
-	cmp	r4, r0
+	ldsb	r0, r3, r1
+	cmp	r5, r1
 	bne	__LBB1_41
 	br	__LBB1_8
 __LBB1_8:                               # %for.inc
                                         #   in Loop: Header=BB1_7 Depth=1
-	ldi	r0, 22
-	cmp	r6, r0
-	ldi	r0, -23
+	ldi	r1, 22
+	cmp	r0, r1
+	ldi	r1, -23
 	bhi	__LBB1_10
 # %bb.9:                                # %for.inc
                                         #   in Loop: Header=BB1_7 Depth=1
-	movens	r2, r0
+	movens	r2, r1
 __LBB1_10:                              # %for.inc
                                         #   in Loop: Header=BB1_7 Depth=1
-	add r6, r0, r0
-	ldi	r1, _colors
-	ldsb	r0, r1, r0
-	cmp	r4, r0
+	add r0, r1, r1
+	ldsb	r1, r3, r1
+	cmp	r5, r1
 	bne	__LBB1_41
 	br	__LBB1_11
 __LBB1_11:                              # %for.inc.1
                                         #   in Loop: Header=BB1_7 Depth=1
-	ldi	r0, 21
-	cmp	r6, r0
-	ldi	r0, -22
+	ldi	r1, 21
+	cmp	r0, r1
+	ldi	r1, -22
 	bhi	__LBB1_13
 # %bb.12:                               # %for.inc.1
                                         #   in Loop: Header=BB1_7 Depth=1
-	ldi	r0, 2
+	ldi	r1, 2
 __LBB1_13:                              # %for.inc.1
                                         #   in Loop: Header=BB1_7 Depth=1
-	add r6, r0, r0
-	ldsb	r0, r1, r0
-	cmp	r4, r0
+	add r0, r1, r1
+	ldsb	r1, r3, r1
+	cmp	r5, r1
 	bne	__LBB1_41
 	br	__LBB1_14
 __LBB1_14:                              # %for.inc.2
                                         #   in Loop: Header=BB1_7 Depth=1
-	ldi	r0, 20
-	cmp	r6, r0
-	ldi	r0, -21
+	ldi	r1, 20
+	cmp	r0, r1
+	ldi	r1, -21
 	bhi	__LBB1_16
 # %bb.15:                               # %for.inc.2
                                         #   in Loop: Header=BB1_7 Depth=1
-	ldi	r0, 3
+	ldi	r1, 3
 __LBB1_16:                              # %for.inc.2
                                         #   in Loop: Header=BB1_7 Depth=1
-	add r6, r0, r0
-	ldsb	r0, r1, r0
-	cmp	r4, r0
+	add r0, r1, r1
+	ldsb	r1, r3, r1
+	cmp	r5, r1
 	bne	__LBB1_41
 	br	__LBB1_17
 __LBB1_17:                              # %for.inc.3
                                         #   in Loop: Header=BB1_7 Depth=1
-	ldi	r0, 19
-	cmp	r6, r0
-	ldi	r0, -20
+	ldi	r1, 19
+	cmp	r0, r1
+	ldi	r1, -20
 	bhi	__LBB1_19
 # %bb.18:                               # %for.inc.3
                                         #   in Loop: Header=BB1_7 Depth=1
-	ldi	r0, 4
+	ldi	r1, 4
 __LBB1_19:                              # %for.inc.3
                                         #   in Loop: Header=BB1_7 Depth=1
-	add r6, r0, r0
-	ldsb	r0, r1, r0
-	cmp	r4, r0
+	add r0, r1, r1
+	ldsb	r1, r3, r1
+	cmp	r5, r1
 	bne	__LBB1_41
 	br	__LBB1_20
 __LBB1_20:                              # %for.inc.4
                                         #   in Loop: Header=BB1_7 Depth=1
-	ldi	r0, 18
-	cmp	r6, r0
-	ldi	r0, -19
+	ldi	r1, 18
+	cmp	r0, r1
+	ldi	r1, -19
 	bhi	__LBB1_22
 # %bb.21:                               # %for.inc.4
                                         #   in Loop: Header=BB1_7 Depth=1
-	ldi	r0, 5
+	ldi	r1, 5
 __LBB1_22:                              # %for.inc.4
                                         #   in Loop: Header=BB1_7 Depth=1
-	add r6, r0, r0
-	ldsb	r0, r1, r0
-	cmp	r4, r0
+	add r0, r1, r1
+	ldsb	r1, r3, r1
+	cmp	r5, r1
 	bne	__LBB1_41
 	br	__LBB1_23
 __LBB1_23:                              # %if.then32
                                         #   in Loop: Header=BB1_7 Depth=1
-	ldi	r0, __L.str
-	jsr	PrintToTTY
-	ldi	r3, 0
-	ldi	r2, 1
-	ldi	r0, 97
-	add r6, r0, r0
-	ldi	r1, -8528
-	stb	r1, r0
-	lsw	r0, -12                         # 2-byte Folded Reload
-	cmp	r0, r2
+	lsw	r1, -12                         # 2-byte Folded Reload
+	cmp	r1, r2
 	beq	__LBB1_25
 	br	__LBB1_24
 __LBB1_24:                              # %if.then32
                                         #   in Loop: Header=BB1_7 Depth=1
-	ldi	r0, 6
-	cmp	r6, r0
+	ldi	r1, 6
+	cmp	r0, r1
 	blo	__LBB1_37
 	br	__LBB1_25
 __LBB1_25:                              # %get_dst.exit
                                         #   in Loop: Header=BB1_7 Depth=1
-	movens	r6, r0
-	add	r0, 6
-	lsw	r1, -14                         # 2-byte Folded Reload
-	sub r1, r0, r0
 	movens	r0, r1
-	add	r1, 24
-	cmp	r0, r3
+	add	r1, 6
+	lsw	r2, -14                         # 2-byte Folded Reload
+	sub r2, r1, r1
+	movens	r1, r2
+	add	r2, 24
+	ldi	r4, 0
+	cmp	r1, r4
 	blt	__LBB1_27
 # %bb.26:                               # %get_dst.exit
                                         #   in Loop: Header=BB1_7 Depth=1
-	movens	r0, r1
+	movens	r1, r2
 __LBB1_27:                              # %get_dst.exit
                                         #   in Loop: Header=BB1_7 Depth=1
-	cmp	r1, r3
-	ldi	r0, -1
+	ldi	r1, 0
+	cmp	r2, r1
+	ldi	r1, -1
+	movens	r1, r4
 	beq	__LBB1_29
 # %bb.28:                               # %get_dst.exit
                                         #   in Loop: Header=BB1_7 Depth=1
-	sxt	r1, r0
+	sxt	r2, r4
 __LBB1_29:                              # %get_dst.exit
                                         #   in Loop: Header=BB1_7 Depth=1
-	cmp	r0, r3
+	ldi	r1, 0
+	ssw	r4, -10                         # 2-byte Folded Spill
+	cmp	r4, r1
+	ldi	r2, 1
 	blt	__LBB1_37
 	br	__LBB1_30
-__LBB1_30:                              # %for.body44.preheader
+__LBB1_30:                              # %for.body42.preheader
                                         #   in Loop: Header=BB1_7 Depth=1
-	ldi	r1, -1
-	ssw	r0, -10                         # 2-byte Folded Spill
+	ldi	r4, -1
 	br	__LBB1_32
-__LBB1_32:                              # %for.body44
+__LBB1_32:                              # %for.body42
                                         #   Parent Loop BB1_7 Depth=1
                                         # =>  This Inner Loop Header: Depth=2
-	add r6, r1, r3
-	movens	r3, r2
-	sub	r2, 17
-	add	r3, 7
-	ldi	r0, 23
-	cmp	r3, r0
+	add r0, r4, r2
+	movens	r2, r1
+	sub	r1, 17
+	add	r2, 7
+	ldi	r3, 23
+	cmp	r2, r3
 	bhi	__LBB1_34
-# %bb.33:                               # %for.body44
+# %bb.33:                               # %for.body42
                                         #   in Loop: Header=BB1_32 Depth=2
-	movens	r3, r2
-__LBB1_34:                              # %for.body44
+	movens	r2, r1
+__LBB1_34:                              # %for.body42
                                         #   in Loop: Header=BB1_32 Depth=2
-	movens	r2, r3
-	sub	r3, 24
-	cmp	r2, r0
+	movens	r1, r2
+	sub	r2, 24
+	cmp	r1, r3
 	bgt	__LBB1_36
-# %bb.35:                               # %for.body44
+# %bb.35:                               # %for.body42
                                         #   in Loop: Header=BB1_32 Depth=2
-	movens	r2, r3
-__LBB1_36:                              # %for.body44
+	movens	r1, r2
+__LBB1_36:                              # %for.body42
                                         #   in Loop: Header=BB1_32 Depth=2
-	ldi	r2, _colors
-	ldsb	r3, r2, r2
-	lsw	r3, -8                          # 2-byte Folded Reload
-	cmp	r3, r2
+	ldi	r3, _colors
+	ldsb	r2, r3, r1
+	lsw	r2, -8                          # 2-byte Folded Reload
+	cmp	r2, r1
 	ldi	r2, 1
-	ldi	r3, 0
-	lsw	r0, -10                         # 2-byte Folded Reload
 	beq	__LBB1_41
 	br	__LBB1_31
-__LBB1_31:                              # %for.cond39
+__LBB1_31:                              # %for.cond37
                                         #   in Loop: Header=BB1_32 Depth=2
-	add	r1, 1
-	cmp	r0, r1
+	add	r4, 1
+	lsw	r1, -10                         # 2-byte Folded Reload
+	cmp	r1, r4
 	beq	__LBB1_37
 	br	__LBB1_32
-__LBB1_37:                              # %if.then71.loopexit
+__LBB1_37:                              # %if.then69.loopexit
                                         #   in Loop: Header=BB1_7 Depth=1
-	ldi	r0, _player
-	ldb	r0, r0
-	cmp	r0, r3
-	movens	r2, r0
+	ldi	r1, _player
+	ldb	r1, r1
+	ldi	r4, 0
+	cmp	r1, r4
+	movens	r2, r1
 	beq	__LBB1_39
-# %bb.38:                               # %if.then71.loopexit
+# %bb.38:                               # %if.then69.loopexit
                                         #   in Loop: Header=BB1_7 Depth=1
-	movens	r3, r0
-__LBB1_39:                              # %if.then71.loopexit
+	ldi	r1, 0
+__LBB1_39:                              # %if.then69.loopexit
                                         #   in Loop: Header=BB1_7 Depth=1
-	ldi	r1, _amt_of_checkers
-	ldsb	r0, r1, r0
-	ldi	r1, 11
-	cmp	r0, r1
+	ldi	r4, _amt_of_checkers
+	ldsb	r1, r4, r1
+	ldi	r4, 11
+	cmp	r1, r4
 	blt	__LBB1_41
 	br	__LBB1_40
-__LBB1_41:                              # %if.end87
+__LBB1_41:                              # %if.end85
                                         #   in Loop: Header=BB1_7 Depth=1
-	ldi	r0, 22
-	cmp	r6, r0
-	movens	r2, r5
+	ldi	r1, 22
+	cmp	r0, r1
+	movens	r2, r6
 	bhi	__LBB1_43
-# %bb.42:                               # %if.end87
+# %bb.42:                               # %if.end85
                                         #   in Loop: Header=BB1_7 Depth=1
-	movens	r3, r5
-__LBB1_43:                              # %if.end87
+	ldi	r6, 0
+__LBB1_43:                              # %if.end85
                                         #   in Loop: Header=BB1_7 Depth=1
-	add	r6, 1
-	ldi	r0, 24
-	cmp	r6, r0
+	add	r0, 1
+	ldi	r1, 24
+	cmp	r0, r1
 	bne	__LBB1_7
 	br	__LBB1_44
-__LBB1_44:                              # %cleanup93
+__LBB1_44:                              # %cleanup91
 	ldi	r0, 1
-	and r5, r0, r0
+	and r6, r0, r0
 	lsw	r6, -6                          # 2-byte Folded Reload
 	lsw	r5, -4                          # 2-byte Folded Reload
 	lsw	r4, -2                          # 2-byte Folded Reload
 	addsp	14
 	pop	fp
 	rts
-__LBB1_40:                              # %if.then81
-	ldi	r0, __L.str.1
-	jsr	PrintToTTY
+__LBB1_40:                              # %if.then79
+	ldi	r0, __L.str
+	jsr	print_to_tty
 	br	__LBB1_44
                                         # -- End function
-isMoveValid>                            # -- Begin function isMoveValid
+is_move_valid>                          # -- Begin function is_move_valid
 # %bb.0:                                # %entry
 	push	fp
 	ldsp	fp
@@ -376,7 +371,7 @@ __LBB2_7:                               # %if.end12
 	bne	__LBB2_9
 	br	__LBB2_8
 __LBB2_8:                               # %if.then25
-	ldi	r1, __L.str.3
+	ldi	r1, __L.str.2
 	ldi	r0, 1
 	lsw	r2, -8                          # 2-byte Folded Reload
 	cmp	r2, r0
@@ -385,7 +380,7 @@ __LBB2_8:                               # %if.then25
 	beq	__LBB2_31
 	br	__LBB2_32
 __LBB2_4:                               # %if.then
-	ldi	r1, __L.str.2
+	ldi	r1, __L.str.1
 	ldi	r0, 1
 	lsw	r2, -8                          # 2-byte Folded Reload
 	cmp	r2, r0
@@ -394,7 +389,7 @@ __LBB2_4:                               # %if.then
 	br	__LBB2_32
 __LBB2_31:                              # %cleanup82.sink.split
 	movens	r1, r0
-	jsr	PrintToTTY
+	jsr	print_to_tty
 	movens	r5, r0
 __LBB2_32:                              # %cleanup82
 	lsw	r6, -6                          # 2-byte Folded Reload
@@ -457,7 +452,7 @@ __LBB2_19:                              # %get_dst.exit
 	bhi	__LBB2_21
 	br	__LBB2_20
 __LBB2_20:                              # %if.then39
-	ldi	r1, __L.str.4
+	ldi	r1, __L.str.3
 	lsw	r2, -8                          # 2-byte Folded Reload
 	cmp	r2, r0
 	ldi	r0, 0
@@ -486,7 +481,7 @@ __LBB2_24:                              # %if.end44
 	br	__LBB2_25
 __LBB2_27:                              # %if.then57
 	ldi	r0, 0
-	ldi	r1, __L.str.5
+	ldi	r1, __L.str.4
 	ldi	r2, 1
 	lsw	r3, -8                          # 2-byte Folded Reload
 	cmp	r3, r2
@@ -515,7 +510,7 @@ __LBB2_28:                              # %for.cond
 	br	__LBB2_29
 __LBB2_30:                              # %if.then72
 	ldi	r2, 0
-	ldi	r1, __L.str.6
+	ldi	r1, __L.str.5
 	lsw	r3, -8                          # 2-byte Folded Reload
 	cmp	r3, r0
 	movens	r2, r0
@@ -526,517 +521,307 @@ is_all_in_home>                         # -- Begin function is_all_in_home
 # %bb.0:                                # %entry
 	push	fp
 	ldsp	fp
-	addsp	-4
+	addsp	-6
 	ssw	r4, -2                          # 2-byte Folded Spill
 	ssw	r5, -4                          # 2-byte Folded Spill
-	ldi	r1, _player
-	ldb	r1, r0
-	ldi	r2, 255
-	stb	r1, r2
-	ldi	r3, 1
-	cmp	r0, r3
-	bne	__LBB3_38
-	br	__LBB3_1
-__LBB3_1:                               # %if.then
-	ldi	r0, _colors
-	ldb	r0, r0
-	cmp	r0, r3
-	bne	__LBB3_3
-	br	__LBB3_2
-__LBB3_2:                               # %land.lhs.true
-	ldi	r0, _points+2
-	ldw	r0, r0
-	ldi	r2, 0
-	cmp	r0, r2
-	bne	__LBB3_37
-	br	__LBB3_3
-__LBB3_3:                               # %for.inc
-	ldi	r0, _colors+1
-	ldb	r0, r0
+	ssw	r6, -6                          # 2-byte Folded Spill
+	ldi	r2, _player
+	ldb	r2, r0
+	ldi	r1, 255
+	stb	r2, r1
 	ldi	r2, 1
 	cmp	r0, r2
 	bne	__LBB3_5
-	br	__LBB3_4
-__LBB3_4:                               # %land.lhs.true.1
-	ldi	r0, _points+4
-	ldw	r0, r0
-	ldi	r4, 0
+	br	__LBB3_1
+__LBB3_1:                               # %for.body.preheader
+	ldi	r1, 0
+	ldi	r3, _points+2
+	ldi	r5, _colors
+	ldi	r4, 1
+	ldi	r6, 18
+	movens	r1, r2
+__LBB3_2:                               # %for.body
+                                        # =>This Inner Loop Header: Depth=1
+	ldb	r2, r5, r0
 	cmp	r0, r4
-	bne	__LBB3_37
-	br	__LBB3_5
-__LBB3_5:                               # %for.inc.1
-	ldi	r0, _colors+2
+	bne	__LBB3_4
+	br	__LBB3_3
+__LBB3_3:                               # %land.lhs.true
+                                        #   in Loop: Header=BB3_2 Depth=1
+	ldw	r3, r0
+	cmp	r0, r1
+	movens	r1, r0
+	bne	__LBB3_42
+	br	__LBB3_4
+__LBB3_4:                               # %for.inc
+                                        #   in Loop: Header=BB3_2 Depth=1
+	add	r3, 2
+	add	r2, 1
+	cmp	r2, r6
+	movens	r4, r0
+	beq	__LBB3_42
+	br	__LBB3_2
+__LBB3_5:                               # %if.else
+	ldi	r0, _colors+12
 	ldb	r0, r0
-	cmp	r0, r2
+	ldi	r3, 2
+	cmp	r0, r3
 	bne	__LBB3_7
 	br	__LBB3_6
-__LBB3_6:                               # %land.lhs.true.2
-	ldi	r0, _points+6
+__LBB3_6:                               # %land.lhs.true21
+	ldi	r0, _points+26
 	ldw	r0, r0
 	ldi	r4, 0
 	cmp	r0, r4
-	bne	__LBB3_37
+	movens	r4, r0
+	bne	__LBB3_42
 	br	__LBB3_7
-__LBB3_7:                               # %for.inc.2
-	ldi	r0, _colors+3
+__LBB3_7:                               # %for.inc27
+	ldi	r0, _colors+13
 	ldb	r0, r0
-	cmp	r0, r2
+	cmp	r0, r3
 	bne	__LBB3_9
 	br	__LBB3_8
-__LBB3_8:                               # %land.lhs.true.3
-	ldi	r0, _points+8
+__LBB3_8:                               # %land.lhs.true21.1
+	ldi	r0, _points+28
 	ldw	r0, r0
 	ldi	r4, 0
 	cmp	r0, r4
-	bne	__LBB3_37
+	movens	r4, r0
+	bne	__LBB3_42
 	br	__LBB3_9
-__LBB3_9:                               # %for.inc.3
-	ldi	r0, _colors+4
+__LBB3_9:                               # %for.inc27.1
+	ldi	r0, _colors+14
 	ldb	r0, r0
-	cmp	r0, r2
+	cmp	r0, r3
 	bne	__LBB3_11
 	br	__LBB3_10
-__LBB3_10:                              # %land.lhs.true.4
-	ldi	r0, _points+10
+__LBB3_10:                              # %land.lhs.true21.2
+	ldi	r0, _points+30
 	ldw	r0, r0
 	ldi	r4, 0
 	cmp	r0, r4
-	bne	__LBB3_37
+	movens	r4, r0
+	bne	__LBB3_42
 	br	__LBB3_11
-__LBB3_11:                              # %for.inc.4
-	ldi	r0, _colors+5
+__LBB3_11:                              # %for.inc27.2
+	ldi	r0, _colors+15
 	ldb	r0, r0
-	cmp	r0, r2
+	cmp	r0, r3
 	bne	__LBB3_13
 	br	__LBB3_12
-__LBB3_12:                              # %land.lhs.true.5
-	ldi	r0, _points+12
+__LBB3_12:                              # %land.lhs.true21.3
+	ldi	r0, _points+32
 	ldw	r0, r0
 	ldi	r4, 0
 	cmp	r0, r4
-	bne	__LBB3_37
+	movens	r4, r0
+	bne	__LBB3_42
 	br	__LBB3_13
-__LBB3_13:                              # %for.inc.5
-	ldi	r0, _colors+6
+__LBB3_13:                              # %for.inc27.3
+	ldi	r0, _colors+16
 	ldb	r0, r0
-	cmp	r0, r2
+	cmp	r0, r3
 	bne	__LBB3_15
 	br	__LBB3_14
-__LBB3_14:                              # %land.lhs.true.6
-	ldi	r0, _points+14
+__LBB3_14:                              # %land.lhs.true21.4
+	ldi	r0, _points+34
 	ldw	r0, r0
 	ldi	r4, 0
 	cmp	r0, r4
-	bne	__LBB3_37
+	movens	r4, r0
+	bne	__LBB3_42
 	br	__LBB3_15
-__LBB3_15:                              # %for.inc.6
-	ldi	r0, _colors+7
+__LBB3_15:                              # %for.inc27.4
+	ldi	r0, _colors+17
 	ldb	r0, r0
-	cmp	r0, r2
+	cmp	r0, r3
 	bne	__LBB3_17
 	br	__LBB3_16
-__LBB3_16:                              # %land.lhs.true.7
-	ldi	r0, _points+16
-	ldw	r0, r0
-	ldi	r4, 0
-	cmp	r0, r4
-	bne	__LBB3_37
-	br	__LBB3_17
-__LBB3_17:                              # %for.inc.7
-	ldi	r0, _colors+8
-	ldb	r0, r0
-	cmp	r0, r2
-	bne	__LBB3_19
-	br	__LBB3_18
-__LBB3_18:                              # %land.lhs.true.8
-	ldi	r0, _points+18
-	ldw	r0, r0
-	ldi	r4, 0
-	cmp	r0, r4
-	bne	__LBB3_37
-	br	__LBB3_19
-__LBB3_19:                              # %for.inc.8
-	ldi	r0, _colors+9
-	ldb	r0, r0
-	cmp	r0, r2
-	bne	__LBB3_21
-	br	__LBB3_20
-__LBB3_20:                              # %land.lhs.true.9
-	ldi	r0, _points+20
-	ldw	r0, r0
-	ldi	r4, 0
-	cmp	r0, r4
-	bne	__LBB3_37
-	br	__LBB3_21
-__LBB3_21:                              # %for.inc.9
-	ldi	r0, _colors+10
-	ldb	r0, r0
-	cmp	r0, r2
-	bne	__LBB3_23
-	br	__LBB3_22
-__LBB3_22:                              # %land.lhs.true.10
-	ldi	r0, _points+22
-	ldw	r0, r0
-	ldi	r4, 0
-	cmp	r0, r4
-	bne	__LBB3_37
-	br	__LBB3_23
-__LBB3_23:                              # %for.inc.10
-	ldi	r0, _colors+11
-	ldb	r0, r0
-	cmp	r0, r2
-	bne	__LBB3_25
-	br	__LBB3_24
-__LBB3_24:                              # %land.lhs.true.11
-	ldi	r0, _points+24
-	ldw	r0, r0
-	ldi	r4, 0
-	cmp	r0, r4
-	bne	__LBB3_37
-	br	__LBB3_25
-__LBB3_25:                              # %for.inc.11
-	ldi	r0, _colors+12
-	ldb	r0, r0
-	cmp	r0, r2
-	bne	__LBB3_27
-	br	__LBB3_26
-__LBB3_26:                              # %land.lhs.true.12
-	ldi	r0, _points+26
-	ldw	r0, r0
-	ldi	r4, 0
-	cmp	r0, r4
-	bne	__LBB3_37
-	br	__LBB3_27
-__LBB3_27:                              # %for.inc.12
-	ldi	r0, _colors+13
-	ldb	r0, r0
-	cmp	r0, r2
-	bne	__LBB3_29
-	br	__LBB3_28
-__LBB3_28:                              # %land.lhs.true.13
-	ldi	r0, _points+28
-	ldw	r0, r0
-	ldi	r4, 0
-	cmp	r0, r4
-	bne	__LBB3_37
-	br	__LBB3_29
-__LBB3_29:                              # %for.inc.13
-	ldi	r0, _colors+14
-	ldb	r0, r0
-	cmp	r0, r2
-	bne	__LBB3_31
-	br	__LBB3_30
-__LBB3_30:                              # %land.lhs.true.14
-	ldi	r0, _points+30
-	ldw	r0, r0
-	ldi	r4, 0
-	cmp	r0, r4
-	bne	__LBB3_37
-	br	__LBB3_31
-__LBB3_31:                              # %for.inc.14
-	ldi	r0, _colors+15
-	ldb	r0, r0
-	cmp	r0, r2
-	bne	__LBB3_33
-	br	__LBB3_32
-__LBB3_32:                              # %land.lhs.true.15
-	ldi	r0, _points+32
-	ldw	r0, r0
-	ldi	r4, 0
-	cmp	r0, r4
-	bne	__LBB3_37
-	br	__LBB3_33
-__LBB3_33:                              # %for.inc.15
-	ldi	r0, _colors+16
-	ldb	r0, r0
-	cmp	r0, r2
-	bne	__LBB3_35
-	br	__LBB3_34
-__LBB3_34:                              # %land.lhs.true.16
-	ldi	r0, _points+34
-	ldw	r0, r0
-	ldi	r4, 0
-	cmp	r0, r4
-	bne	__LBB3_37
-	br	__LBB3_35
-__LBB3_35:                              # %for.inc.16
-	ldi	r0, _colors+17
-	ldb	r0, r0
-	cmp	r0, r2
-	movens	r2, r0
-	bne	__LBB3_75
-	br	__LBB3_36
-__LBB3_36:                              # %land.lhs.true.17
+__LBB3_16:                              # %land.lhs.true21.5
 	ldi	r0, _points+36
 	ldw	r0, r0
 	ldi	r4, 0
 	cmp	r0, r4
-	movens	r2, r0
-	beq	__LBB3_75
-	br	__LBB3_37
-__LBB3_37:                              # %cleanup
-	ldi	r0, 0
-	movens	r3, r2
-	br	__LBB3_75
-__LBB3_38:                              # %if.else
-	ldi	r0, _colors+12
-	ldb	r0, r0
-	ldi	r4, 2
-	cmp	r0, r4
-	bne	__LBB3_40
-	br	__LBB3_39
-__LBB3_39:                              # %land.lhs.true21
-	ldi	r0, _points+26
-	ldw	r0, r0
-	ldi	r2, 0
-	cmp	r0, r2
-	movens	r2, r0
-	bne	__LBB3_75
-	br	__LBB3_40
-__LBB3_40:                              # %for.inc27
-	ldi	r0, _colors+13
-	ldb	r0, r0
-	cmp	r0, r4
+	movens	r4, r0
 	bne	__LBB3_42
-	br	__LBB3_41
-__LBB3_41:                              # %land.lhs.true21.1
-	ldi	r0, _points+28
-	ldw	r0, r0
-	ldi	r2, 0
-	cmp	r0, r2
-	movens	r2, r0
-	bne	__LBB3_75
-	br	__LBB3_42
-__LBB3_42:                              # %for.inc27.1
-	ldi	r0, _colors+14
-	ldb	r0, r0
-	cmp	r0, r4
-	bne	__LBB3_44
-	br	__LBB3_43
-__LBB3_43:                              # %land.lhs.true21.2
-	ldi	r0, _points+30
-	ldw	r0, r0
-	ldi	r2, 0
-	cmp	r0, r2
-	movens	r2, r0
-	bne	__LBB3_75
-	br	__LBB3_44
-__LBB3_44:                              # %for.inc27.2
-	ldi	r0, _colors+15
-	ldb	r0, r0
-	cmp	r0, r4
-	bne	__LBB3_46
-	br	__LBB3_45
-__LBB3_45:                              # %land.lhs.true21.3
-	ldi	r0, _points+32
-	ldw	r0, r0
-	ldi	r2, 0
-	cmp	r0, r2
-	movens	r2, r0
-	bne	__LBB3_75
-	br	__LBB3_46
-__LBB3_46:                              # %for.inc27.3
-	ldi	r0, _colors+16
-	ldb	r0, r0
-	cmp	r0, r4
-	bne	__LBB3_48
-	br	__LBB3_47
-__LBB3_47:                              # %land.lhs.true21.4
-	ldi	r0, _points+34
-	ldw	r0, r0
-	ldi	r2, 0
-	cmp	r0, r2
-	movens	r2, r0
-	bne	__LBB3_75
-	br	__LBB3_48
-__LBB3_48:                              # %for.inc27.4
-	ldi	r0, _colors+17
-	ldb	r0, r0
-	cmp	r0, r4
-	bne	__LBB3_50
-	br	__LBB3_49
-__LBB3_49:                              # %land.lhs.true21.5
-	ldi	r0, _points+36
-	ldw	r0, r0
-	ldi	r2, 0
-	cmp	r0, r2
-	movens	r2, r0
-	bne	__LBB3_75
-	br	__LBB3_50
-__LBB3_50:                              # %for.inc27.5
+	br	__LBB3_17
+__LBB3_17:                              # %for.inc27.5
 	ldi	r0, _colors+18
 	ldb	r0, r0
-	cmp	r0, r4
-	bne	__LBB3_52
-	br	__LBB3_51
-__LBB3_51:                              # %land.lhs.true21.6
+	cmp	r0, r3
+	bne	__LBB3_19
+	br	__LBB3_18
+__LBB3_18:                              # %land.lhs.true21.6
 	ldi	r0, _points+38
 	ldw	r0, r0
-	ldi	r2, 0
-	cmp	r0, r2
-	movens	r2, r0
-	bne	__LBB3_75
-	br	__LBB3_52
-__LBB3_52:                              # %for.inc27.6
+	ldi	r4, 0
+	cmp	r0, r4
+	movens	r4, r0
+	bne	__LBB3_42
+	br	__LBB3_19
+__LBB3_19:                              # %for.inc27.6
 	ldi	r0, _colors+19
 	ldb	r0, r0
-	cmp	r0, r4
-	bne	__LBB3_54
-	br	__LBB3_53
-__LBB3_53:                              # %land.lhs.true21.7
+	cmp	r0, r3
+	bne	__LBB3_21
+	br	__LBB3_20
+__LBB3_20:                              # %land.lhs.true21.7
 	ldi	r0, _points+40
 	ldw	r0, r0
-	ldi	r2, 0
-	cmp	r0, r2
-	movens	r2, r0
-	bne	__LBB3_75
-	br	__LBB3_54
-__LBB3_54:                              # %for.inc27.7
+	ldi	r4, 0
+	cmp	r0, r4
+	movens	r4, r0
+	bne	__LBB3_42
+	br	__LBB3_21
+__LBB3_21:                              # %for.inc27.7
 	ldi	r0, _colors+20
 	ldb	r0, r0
-	cmp	r0, r4
-	bne	__LBB3_56
-	br	__LBB3_55
-__LBB3_55:                              # %land.lhs.true21.8
+	cmp	r0, r3
+	bne	__LBB3_23
+	br	__LBB3_22
+__LBB3_22:                              # %land.lhs.true21.8
 	ldi	r0, _points+42
 	ldw	r0, r0
-	ldi	r2, 0
-	cmp	r0, r2
-	movens	r2, r0
-	bne	__LBB3_75
-	br	__LBB3_56
-__LBB3_56:                              # %for.inc27.8
+	ldi	r4, 0
+	cmp	r0, r4
+	movens	r4, r0
+	bne	__LBB3_42
+	br	__LBB3_23
+__LBB3_23:                              # %for.inc27.8
 	ldi	r0, _colors+21
 	ldb	r0, r0
-	cmp	r0, r4
-	bne	__LBB3_58
-	br	__LBB3_57
-__LBB3_57:                              # %land.lhs.true21.9
+	cmp	r0, r3
+	bne	__LBB3_25
+	br	__LBB3_24
+__LBB3_24:                              # %land.lhs.true21.9
 	ldi	r0, _points+44
 	ldw	r0, r0
-	ldi	r2, 0
-	cmp	r0, r2
-	movens	r2, r0
-	bne	__LBB3_75
-	br	__LBB3_58
-__LBB3_58:                              # %for.inc27.9
+	ldi	r4, 0
+	cmp	r0, r4
+	movens	r4, r0
+	bne	__LBB3_42
+	br	__LBB3_25
+__LBB3_25:                              # %for.inc27.9
 	ldi	r0, _colors+22
 	ldb	r0, r0
-	cmp	r0, r4
-	bne	__LBB3_60
-	br	__LBB3_59
-__LBB3_59:                              # %land.lhs.true21.10
+	cmp	r0, r3
+	bne	__LBB3_27
+	br	__LBB3_26
+__LBB3_26:                              # %land.lhs.true21.10
 	ldi	r0, _points+46
 	ldw	r0, r0
-	ldi	r2, 0
-	cmp	r0, r2
-	movens	r2, r0
-	bne	__LBB3_75
-	br	__LBB3_60
-__LBB3_60:                              # %for.inc27.10
+	ldi	r4, 0
+	cmp	r0, r4
+	movens	r4, r0
+	bne	__LBB3_42
+	br	__LBB3_27
+__LBB3_27:                              # %for.inc27.10
 	ldi	r0, _colors+23
 	ldb	r0, r0
-	cmp	r0, r4
-	bne	__LBB3_62
-	br	__LBB3_61
-__LBB3_61:                              # %land.lhs.true21.11
+	cmp	r0, r3
+	bne	__LBB3_29
+	br	__LBB3_28
+__LBB3_28:                              # %land.lhs.true21.11
 	ldi	r0, _points+48
 	ldw	r0, r0
-	ldi	r2, 0
-	cmp	r0, r2
-	movens	r2, r0
-	bne	__LBB3_75
-	br	__LBB3_62
-__LBB3_62:                              # %for.inc27.11
+	ldi	r4, 0
+	cmp	r0, r4
+	movens	r4, r0
+	bne	__LBB3_42
+	br	__LBB3_29
+__LBB3_29:                              # %for.inc27.11
 	ldi	r5, 0
 	ldi	r0, _colors
 	ldb	r0, r0
-	cmp	r0, r4
-	bne	__LBB3_64
-	br	__LBB3_63
-__LBB3_63:                              # %land.lhs.true42
+	cmp	r0, r3
+	bne	__LBB3_31
+	br	__LBB3_30
+__LBB3_30:                              # %land.lhs.true42
 	ldi	r0, _points+2
 	ldw	r0, r0
-	ldi	r2, 0
-	cmp	r0, r2
-	bne	__LBB3_74
-	br	__LBB3_64
-__LBB3_64:                              # %for.inc49
+	ldi	r1, 0
+	cmp	r0, r1
+	bne	__LBB3_41
+	br	__LBB3_31
+__LBB3_31:                              # %for.inc49
 	ldi	r0, _colors+1
 	ldb	r0, r0
-	cmp	r0, r4
-	bne	__LBB3_66
-	br	__LBB3_65
-__LBB3_65:                              # %land.lhs.true42.1
+	cmp	r0, r3
+	bne	__LBB3_33
+	br	__LBB3_32
+__LBB3_32:                              # %land.lhs.true42.1
 	ldi	r0, _points+4
 	ldw	r0, r0
-	ldi	r2, 0
-	cmp	r0, r2
-	bne	__LBB3_74
-	br	__LBB3_66
-__LBB3_66:                              # %for.inc49.1
+	ldi	r1, 0
+	cmp	r0, r1
+	bne	__LBB3_41
+	br	__LBB3_33
+__LBB3_33:                              # %for.inc49.1
 	ldi	r0, _colors+2
 	ldb	r0, r0
-	cmp	r0, r4
-	bne	__LBB3_68
-	br	__LBB3_67
-__LBB3_67:                              # %land.lhs.true42.2
+	cmp	r0, r3
+	bne	__LBB3_35
+	br	__LBB3_34
+__LBB3_34:                              # %land.lhs.true42.2
 	ldi	r0, _points+6
 	ldw	r0, r0
-	ldi	r2, 0
-	cmp	r0, r2
-	bne	__LBB3_74
-	br	__LBB3_68
-__LBB3_68:                              # %for.inc49.2
+	ldi	r1, 0
+	cmp	r0, r1
+	bne	__LBB3_41
+	br	__LBB3_35
+__LBB3_35:                              # %for.inc49.2
 	ldi	r0, _colors+3
 	ldb	r0, r0
-	cmp	r0, r4
-	bne	__LBB3_70
-	br	__LBB3_69
-__LBB3_69:                              # %land.lhs.true42.3
+	cmp	r0, r3
+	bne	__LBB3_37
+	br	__LBB3_36
+__LBB3_36:                              # %land.lhs.true42.3
 	ldi	r0, _points+8
 	ldw	r0, r0
-	ldi	r2, 0
-	cmp	r0, r2
-	bne	__LBB3_74
-	br	__LBB3_70
-__LBB3_70:                              # %for.inc49.3
+	ldi	r1, 0
+	cmp	r0, r1
+	bne	__LBB3_41
+	br	__LBB3_37
+__LBB3_37:                              # %for.inc49.3
 	ldi	r0, _colors+4
 	ldb	r0, r0
-	cmp	r0, r4
-	bne	__LBB3_72
-	br	__LBB3_71
-__LBB3_71:                              # %land.lhs.true42.4
+	cmp	r0, r3
+	bne	__LBB3_39
+	br	__LBB3_38
+__LBB3_38:                              # %land.lhs.true42.4
 	ldi	r0, _points+10
 	ldw	r0, r0
-	ldi	r2, 0
-	cmp	r0, r2
-	bne	__LBB3_74
-	br	__LBB3_72
-__LBB3_72:                              # %for.inc49.4
+	ldi	r1, 0
+	cmp	r0, r1
+	bne	__LBB3_41
+	br	__LBB3_39
+__LBB3_39:                              # %for.inc49.4
 	ldi	r0, _colors+5
 	ldb	r0, r0
-	cmp	r0, r4
-	movens	r5, r2
-	movens	r3, r0
-	bne	__LBB3_75
-	br	__LBB3_73
-__LBB3_73:                              # %land.lhs.true42.5
+	cmp	r0, r3
+	movens	r5, r4
+	movens	r2, r0
+	bne	__LBB3_42
+	br	__LBB3_40
+__LBB3_40:                              # %land.lhs.true42.5
 	ldi	r0, _points+12
 	ldw	r0, r0
-	ldi	r2, 0
-	cmp	r0, r2
-	movens	r3, r0
-	beq	__LBB3_75
-	br	__LBB3_74
-__LBB3_74:                              # %cleanup51
-	movens	r5, r2
+	ldi	r4, 0
+	cmp	r0, r4
+	movens	r2, r0
+	beq	__LBB3_42
+	br	__LBB3_41
+__LBB3_41:                              # %cleanup51
+	movens	r5, r4
 	movens	r5, r0
-__LBB3_75:                              # %return
-	stb	r1, r2
+__LBB3_42:                              # %return
+	ldi	r1, _player
+	stb	r1, r4
+	lsw	r6, -6                          # 2-byte Folded Reload
 	lsw	r5, -4                          # 2-byte Folded Reload
 	lsw	r4, -2                          # 2-byte Folded Reload
-	addsp	4
+	addsp	6
 	pop	fp
 	rts
                                         # -- End function
@@ -1199,8 +984,8 @@ __LBB4_22:                              # %for.cond.cleanup57
 	br	__LBB4_29
 __LBB4_4:                               # %if.then
 	ldi	r4, 0
-	ldi	r0, __L.str.2
-	jsr	PrintToTTY
+	ldi	r0, __L.str.1
+	jsr	print_to_tty
 	br	__LBB4_29
 __LBB4_11:                              # %cleanup.thread
 	lsw	r4, -8                          # 2-byte Folded Reload
@@ -1211,8 +996,8 @@ __LBB4_19:                              # %cleanup49
 	stb	r0, r1
 	br	__LBB4_28
 __LBB4_28:                              # %if.end83
-	ldi	r0, __L.str.7
-	jsr	PrintToTTY
+	ldi	r0, __L.str.6
+	jsr	print_to_tty
 	ldi	r4, 0
 __LBB4_29:                              # %cleanup88
 	sxt	r4, r0
@@ -1225,15 +1010,6 @@ __LBB4_29:                              # %cleanup88
                                         # -- End function
 ### SECTION: .rodata.str1.1
 __L.str:                                # @.str
-	db	10
-	db	102
-	db	105
-	db	110
-	db	100
-	db	32
-	db	0
-
-__L.str.1:                              # @.str.1
 	db	10
 	db	69
 	db	114
@@ -1267,7 +1043,7 @@ __L.str.1:                              # @.str.1
 	db	10
 	db	0
 
-__L.str.2:                              # @.str.2
+__L.str.1:                              # @.str.1
 	db	10
 	db	69
 	db	114
@@ -1294,7 +1070,7 @@ __L.str.2:                              # @.str.2
 	db	10
 	db	0
 
-__L.str.3:                              # @.str.3
+__L.str.2:                              # @.str.2
 	db	10
 	db	69
 	db	114
@@ -1331,7 +1107,7 @@ __L.str.3:                              # @.str.3
 	db	10
 	db	0
 
-__L.str.4:                              # @.str.4
+__L.str.3:                              # @.str.3
 	db	10
 	db	69
 	db	114
@@ -1353,7 +1129,7 @@ __L.str.4:                              # @.str.4
 	db	10
 	db	0
 
-__L.str.5:                              # @.str.5
+__L.str.4:                              # @.str.4
 	db	10
 	db	69
 	db	114
@@ -1372,7 +1148,7 @@ __L.str.5:                              # @.str.5
 	db	10
 	db	0
 
-__L.str.6:                              # @.str.6
+__L.str.5:                              # @.str.5
 	db	10
 	db	69
 	db	114
@@ -1401,7 +1177,7 @@ __L.str.6:                              # @.str.6
 	db	10
 	db	0
 
-__L.str.7:                              # @.str.7
+__L.str.6:                              # @.str.6
 	db	10
 	db	69
 	db	114

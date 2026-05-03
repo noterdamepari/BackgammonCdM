@@ -16,10 +16,10 @@ extern volatile char _amt_of_checkers[2];
 
 char move_checker(unsigned char* move);
 char remove_checker(unsigned char from);
-void PrintToTTY(char* string);
+void print_to_tty(char* string);
 char zabor_rule();
-char isMoveValid(unsigned char* move, unsigned char* dice, int dice_count, int head_taken);
-char isRemoveValid();
+char is_move_valid(unsigned char* move, unsigned char* dice, int dice_count, int head_taken);
+char is_remove_valid();
 char is_all_in_home();
 char validate_bear_off(unsigned char from, unsigned char* dice, int dice_count);
 int get_dst(char from, char to, int player);

@@ -1,11 +1,11 @@
 ### SECTION: .text
 rsect _src_ai_c_1804289383
 
-PrintToTTY: ext
+print_to_tty: ext
 randomize: ext
 is_all_in_home: ext
 validate_bear_off: ext
-isMoveValid: ext
+is_move_valid: ext
 move_checker: ext
 zabor_rule: ext
 remove_checker: ext
@@ -31,7 +31,7 @@ computer_move>                          # -- Begin function computer_move
 	ssw	r6, -6                          # 2-byte Folded Spill
 	movens	r0, r4
 	ldi	r0, __L.str
-	jsr	PrintToTTY
+	jsr	print_to_tty
 	jsr	randomize
 	ldi	r0, _player
 	ldi	r1, 0
@@ -49,7 +49,7 @@ __LBB0_1:                               # %if.then
 	br	__LBB0_2
 __LBB0_2:                               # %if.then2
 	ldi	r0, __L.str.1
-	jsr	PrintToTTY
+	jsr	print_to_tty
 	ldi	r0, 1
 	lsw	r1, -34                         # 2-byte Folded Reload
 	stb	r1, r0
@@ -69,7 +69,7 @@ __LBB0_3:                               # %if.end3
 	br	__LBB0_4
 __LBB0_4:                               # %if.then6
 	ldi	r0, __L.str.2
-	jsr	PrintToTTY
+	jsr	print_to_tty
 	lsw	r2, -40                         # 2-byte Folded Reload
 	add	r6, fp, r0
 	ldi	r1, 3
@@ -241,7 +241,7 @@ __LBB0_21:                              # %if.else68
 	add	r1, fp, r1
 	lsw	r2, -22                         # 2-byte Folded Reload
 	lsw	r3, -28                         # 2-byte Folded Reload
-	jsr	isMoveValid
+	jsr	is_move_valid
 	lsw	r3, -18                         # 2-byte Folded Reload
 	ldi	r2, 12
 	ldi	r1, 0
@@ -554,14 +554,14 @@ __LBB0_65:                              # %cleanup206
 	ldi	r1, -8528
 	stb	r1, r0
 	ldi	r0, __L.str.4
-	jsr	PrintToTTY
+	jsr	print_to_tty
 	lsw	r0, -18                         # 2-byte Folded Reload
 	ldi	r1, 97
 	add r0, r1, r0
 	ldi	r1, -8528
 	stb	r1, r0
 	ldi	r0, __L.str.5
-	jsr	PrintToTTY
+	jsr	print_to_tty
 	ldi	r0, 0
 	cmp	r5, r0
 	ldi	r2, 12
@@ -569,7 +569,7 @@ __LBB0_65:                              # %cleanup206
 	br	__LBB0_66
 __LBB0_42:                              # %cleanup206.thread
 	ldi	r0, __L.str.3
-	jsr	PrintToTTY
+	jsr	print_to_tty
 	br	__LBB0_66
 __LBB0_66:                              # %while.end
 	ldi	r0, 255
