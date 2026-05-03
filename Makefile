@@ -15,6 +15,7 @@ all: build
 build: $(ASM)
 	@printf " - Linking to $(BLUE)build/app.img...$(RESET)\n"
 	@$(COCAS) -t cdm16 -o build/app.img \
+	run.asm \
 	app/ai.asm \
 	app/graphics.asm \
 	app/logic.asm \
