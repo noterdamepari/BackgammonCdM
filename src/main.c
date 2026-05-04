@@ -36,8 +36,8 @@ void player_move(unsigned char* can_remove_checker){
         } 
     }
 
-    // _random - физический массив, который выводится на экраны
-    // dice - фактический массив, который позволяет нам корректно обрабатывать дубли
+    // _random - physical array, which you can see on displays
+    // dice - actual array, which help us with doubles
 
     unsigned char dice[4];
     int dice_count = 0;
@@ -46,7 +46,6 @@ void player_move(unsigned char* can_remove_checker){
     char d1 = _random[0];
     char d2 = _random[1];
 
-    // * обрабатываем дубль
     if (d1 == d2) {
         print_to_tty("\nRolling doubles!!");
         dice[0] = d1; dice[1] = d1; dice[2] = d1; dice[3] = d1;
@@ -59,13 +58,11 @@ void player_move(unsigned char* can_remove_checker){
     }
 
     while (dice_count){
-        // static unsigned char move[2];
         print_to_tty("\nMoves left: ");
         *(char*)TTY = dice_count + '0'; 
 
         // * fetch coordinates
         print_to_tty("\nfrom (z to pass): ");
-        // Проверку делаем через can_remove_checker
         move[0] = getc();
         if (move[0] == 'z' - 'a') {
             print_to_tty("\nPassed.\n");
@@ -86,23 +83,17 @@ void player_move(unsigned char* can_remove_checker){
                 remove_checker(move[0]);
                 for(int i = 0; i < dice_count; i++){
                     if (dice[i] == used_dice) {
-                        dice[i] = dice[dice_count - 1]; 
-                        dice_count--;
+                        dice[i] = dice[--dice_count]; 
                         break;
                     }
-                    if (d1 != d2) {
-                        if (_random[0] == used_dice) _random[0] = 0;
-                        else if (_random[1] == used_dice) _random[1] = 0;
-                    } else {
-                        if (dice_count == 2) _random[1] = 0;
-                    }
                 }
+                if (d1 != d2) {
+                    if (_random[0] == used_dice) _random[0] = 0;
+                    else if (_random[1] == used_dice) _random[1] = 0;
+                } else if (dice_count == 2) _random[1] = 0;
             }
         } else {
-            // normal move, when remove_checker down
-            int dbgdist = get_dst(move[0], move[1], _player);
-            print_to_tty("\nDBG DIST - ");
-            *(char*)TTY = dbgdist + '0';
+            // normal move, when can_remove_checker down
             print_to_tty("\nMove validation...");
 
             if (is_move_valid(move, dice, dice_count, head_can_taken)){

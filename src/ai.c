@@ -36,8 +36,8 @@ void computer_move(unsigned char* can_remove_checker) {
         } 
     }
 
-    // _random - физический массив, который выводится на экраны
-    // dice - фактический массив, который позволяет нам корректно обрабатывать дубли
+    // _random - physical array, which you can see on displays
+    // dice - actual array, which help us with doubles
 
     unsigned char dice[4];
     int dice_count = 0;
@@ -46,7 +46,7 @@ void computer_move(unsigned char* can_remove_checker) {
     char d1 = _random[0];
     char d2 = _random[1];
 
-    // * обрабатываем дубль
+    // * process double
     if (d1 == d2) {
         print_to_tty("\nRolling doubles!!");
         dice[0] = d1; dice[1] = d1; dice[2] = d1; dice[3] = d1;
@@ -111,7 +111,7 @@ void computer_move(unsigned char* can_remove_checker) {
                             }
                         } 
                         unsigned char undomove[2] = {to, from};
-                        move_checker(undomove); // Откатываем назад
+                        move_checker(undomove);
                     }
                 }
             }
@@ -140,12 +140,11 @@ void computer_move(unsigned char* can_remove_checker) {
             }
         } else {
             move_checker(best_move);
-            if (bst_from == 12) head_can_taken--; // Сняли с головы
+            if (bst_from == 12) head_can_taken--;
             int dist = get_dst(bst_from, bst_to, _player);
             for(int i = 0; i < dice_count; i++){
                 if (dice[i] == dist) {
-                    dice[i] = dice[dice_count - 1]; 
-                    dice_count--;
+                    dice[i] = dice[--dice_count]; 
                     break;
                 }
             }

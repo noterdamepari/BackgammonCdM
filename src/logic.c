@@ -62,6 +62,7 @@ char zabor_rule() {
                 return 0; 
             }
         }
+        i += count;
     }
     
     return 1; 
