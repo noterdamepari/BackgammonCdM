@@ -15,14 +15,13 @@ int get_dst(char from, char to, int player) {
 }
 
 char zabor_rule() {
+    if (_amt_of_checkers[!_player] < 11) return 1; 
+
     char opponent = (_player == 1) ? 2 : 1;
     char color = (_player == 1) ? 1 : 2;
-    // char opp_head = (opponent == 1) ? 0 : 12;
     char opp_finish = (opponent == 2) ? 11 : 23;
-
     for (int i = 0; i < 24; i++) {
         int count = 0;
-
         for (int j = 0; j < 6; j++) {
             int idx = i + j;
             if (idx >= 24) idx -= 24;
@@ -32,12 +31,7 @@ char zabor_rule() {
             else
                 break;
         }
-
         if (count == 6) {
-            // dbg
-            // print_to_tty("\nfind ");
-            // *(char*)TTY = i + 'a';
-            //
             char dst = get_dst(i+6, opp_finish, 0);
             char found = 0;
             // trying to find opponent chip ahead
@@ -48,12 +42,6 @@ char zabor_rule() {
                 if (_colors[curr] == opponent){
                     found = 1;
                     break;
-                }
-            }
-
-            if (!found) { // check if opponent already remove chips
-                if (_amt_of_checkers[!_player] < 11) { 
-                    found = 1;
                 }
             }
 
