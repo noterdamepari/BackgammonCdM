@@ -135,28 +135,23 @@ char validate_bear_off(unsigned char from, unsigned char* dice, int dice_count) 
     // get dst
     int dst = (_player == 1) ? (24 - from) : (12 - from);
 
-
     // find dice
     for (int i = 0; i < dice_count; i++) {
         if (dice[i] == dst) {
             return dst; // return dice
         }
     }
-
     // check checkers behind
     char checkers_behind = 0;
     int home_start = (_player == 1) ? 18 : 6;
-
     int player = _player;
-    _player = -1;
-    
+    _player = -1; 
     for (int i = home_start; i < from; i++) {
         if (_colors[i] == player && _points[i + 1] > 0) {
             checkers_behind = 1;
             break;
         }
     }
-
     _player = player;
     // senior dice rule
     if (!checkers_behind) {

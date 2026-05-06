@@ -13,7 +13,7 @@ all: build
 	@printf "$(GREEN)✔ Success!$(RESET) Builded with $(CFLAGS) to $(BLUE)build/app.img$(RESET)\n"
 
 build: $(ASM)
-	@printf " - Linking to $(BLUE)build/app.img...$(RESET)\n"
+	@printf " - Building...\n"
 	@$(COCAS) -t cdm16 -o build/app.img \
 	run.asm \
 	app/ai.asm \
