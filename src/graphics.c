@@ -1,10 +1,12 @@
-#include "header.h"
+#include "backgammon.h"
 
 volatile char* out = (char*)TTY;
+volatile char* in = (char*)KEYBOARD;
 
 char move_checker(unsigned char* move){
+    char color = _colors[move[0]];
     if (_points[move[1]+1]++ == 0){
-        _colors[move[1]] = _player;
+        _colors[move[1]] = color;
     }    
     if(--_points[move[0]+1] == 0){
         _colors[move[0]] = 0;
@@ -20,10 +22,20 @@ char remove_checker(unsigned char from){
     return 0;
 }
 
-void PrintToTTY(char* string){
+void print_to_tty(char* string){
     while (*string){
         *out = *string;
         string++;
+    }
+}
+
+unsigned char getc(){
+    unsigned char chr;
+    while(1) {
+        chr = *in;
+        if (chr >= 'a' && chr <= 'z') {
+            return chr - 'a';
+        }
     }
 }
 

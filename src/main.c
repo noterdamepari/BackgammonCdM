@@ -1,7 +1,6 @@
-#include "header.h"
-volatile char* in = (char*)KEYBOARD;
+#include "backgammon.h"
 
-static unsigned int state = 57123;
+static unsigned int state = 44257;
 
 unsigned int xorshift16() {
     unsigned int x = state;
@@ -22,32 +21,23 @@ void randomize(){
     }
 }
 
-static unsigned char inline getc(){
-    unsigned char chr;
-    while(1) {
-        chr = *in;
-        if (chr >= 'a' && chr <= 'z') {
-            return chr - 'a';
-        }
-    }
-}
 
 
 void player_move(unsigned char* can_remove_checker){
     unsigned char move[2]; 
-    PrintToTTY("\n--- Player Turn ---\n");
+    print_to_tty("\n--- Player Turn ---\n");
     randomize();
     _player = 1;
 
     if (!(*can_remove_checker)){
         if (is_all_in_home()){
-            PrintToTTY ("\nDBG: all checkers in home\nnow you bear off them");
+            print_to_tty ("\nDBG: all checkers in home\nnow you bear off them");
             *can_remove_checker = 1;
         } 
     }
 
-    // _random - физический массив, который выводится на экраны
-    // dice - фактический массив, который позволяет нам корректно обрабатывать дубли
+    // _random - physical array, which you can see on displays
+    // dice - actual array, which help us with doubles
 
     unsigned char dice[4];
     int dice_count = 0;
@@ -56,9 +46,8 @@ void player_move(unsigned char* can_remove_checker){
     char d1 = _random[0];
     char d2 = _random[1];
 
-    // * обрабатываем дубль
     if (d1 == d2) {
-        PrintToTTY("\nRolling doubles!!");
+        print_to_tty("\nRolling doubles!!");
         dice[0] = d1; dice[1] = d1; dice[2] = d1; dice[3] = d1;
         dice_count = 4;
         head_can_taken = 2;
@@ -69,26 +58,24 @@ void player_move(unsigned char* can_remove_checker){
     }
 
     while (dice_count){
-        // static unsigned char move[2];
-        PrintToTTY("\nMoves left: ");
+        print_to_tty("\nMoves left: ");
         *(char*)TTY = dice_count + '0'; 
 
         // * fetch coordinates
-        PrintToTTY("\nfrom (z to pass): ");
-        // Проверку делаем через can_remove_checker
+        print_to_tty("\nfrom (z to pass): ");
         move[0] = getc();
         if (move[0] == 'z' - 'a') {
-            PrintToTTY("\nPassed.\n");
+            print_to_tty("\nPassed.\n");
             break;
         }
 
-        if (*can_remove_checker) PrintToTTY("\nto: (y to bear off) ");
-        else PrintToTTY("\nto: ");
+        if (*can_remove_checker) print_to_tty("\nto: (y to bear off) ");
+        else print_to_tty("\nto: ");
         move[1] = getc();
 
         if (move[1] == 24){
             if (!(*can_remove_checker)){
-                PrintToTTY("You cannot bear off now");
+                print_to_tty("You cannot bear off now");
                 continue;
             } else{
                 int used_dice = validate_bear_off(move[0], dice, dice_count);
@@ -96,32 +83,26 @@ void player_move(unsigned char* can_remove_checker){
                 remove_checker(move[0]);
                 for(int i = 0; i < dice_count; i++){
                     if (dice[i] == used_dice) {
-                        dice[i] = dice[dice_count - 1]; 
-                        dice_count--;
+                        dice[i] = dice[--dice_count]; 
                         break;
                     }
-                    if (d1 != d2) {
-                        if (_random[0] == used_dice) _random[0] = 0;
-                        else if (_random[1] == used_dice) _random[1] = 0;
-                    } else {
-                        if (dice_count == 2) _random[1] = 0;
-                    }
                 }
+                if (d1 != d2) {
+                    if (_random[0] == used_dice) _random[0] = 0;
+                    else if (_random[1] == used_dice) _random[1] = 0;
+                } else if (dice_count == 2) _random[1] = 0;
             }
         } else {
-            // normal move, when remove_checker down
-            int dbgdist = get_dst(move[0], move[1], _player);
-            PrintToTTY("\nDBG DIST - ");
-            *(char*)TTY = dbgdist + '0';
-            PrintToTTY("\nMove validation...");
+            // normal move, when can_remove_checker down
+            print_to_tty("\nMove validation...");
 
-            if (isMoveValid(move, dice, dice_count, head_can_taken)){
+            if (is_move_valid(move, dice, dice_count, head_can_taken)){
                 move_checker(move);
                 if (!zabor_rule()){
                     unsigned char undomove[2] = {move[1], move[0]};
                     move_checker(undomove);
                 } else {
-                    PrintToTTY("\nOk...");
+                    print_to_tty("\nOk...");
                     if (move[0] == 0) head_can_taken--;
 
                     int dist = get_dst(move[0], move[1], _player);
@@ -136,25 +117,16 @@ void player_move(unsigned char* can_remove_checker){
                     if (d1 != d2) {
                         if (_random[0] == dist) _random[0] = 0;
                         else if (_random[1] == dist) _random[1] = 0;
-                    } else {
-                        if (dice_count == 2) _random[1] = 0;
-                    }
+                    } else if (dice_count == 2) _random[1] = 0;
                 }
             } else {
-                PrintToTTY("\nInvalid\n");
+                print_to_tty("\nInvalid\n");
             }
         }
     }
     _player = -1;
 }
 
-char computer_move(){
-    randomize();
-    _player = 0;
-    PrintToTTY("\n--- Computer Turn ---\n");
-    _player = -1;
-    return 0;
-}
 
 int main(){
 
@@ -168,18 +140,19 @@ int main(){
     _points[13] = 11;
     _colors[12] = 2;
     _player = -1;
-    unsigned char can_remove_checker = 0;
+    unsigned char rmv_chck = 0;
+    unsigned char ai_rmv_chck = 0;
 
     // game loop
     while(1){
-        player_move(&can_remove_checker);
+        player_move(&rmv_chck);
         if (!_amt_of_checkers[1]) {
-            PrintToTTY("\nPlayer win!");
+            print_to_tty("\nPlayer win!");
             break;
         }
-        computer_move();
+        computer_move(&ai_rmv_chck);
         if (!_amt_of_checkers[0]) {
-            PrintToTTY("\nComputer win!");
+            print_to_tty("\nComputer win!");
             break;
         }
     }
