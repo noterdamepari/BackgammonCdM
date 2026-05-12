@@ -6,7 +6,7 @@
 extern volatile unsigned int _points[25]; // zero is null point, starts from 1
 extern volatile char _colors[25]; // 0 - clear point, 1 - player`s point, 2 - computer`s point 
 extern volatile char _player; // 1 - player move; 0 - computer move
-extern volatile char _dbg; 
+extern volatile char _reserved; 
 extern volatile char _random[2];
 extern volatile char _amt_of_checkers[2];
 

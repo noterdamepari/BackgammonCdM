@@ -32,7 +32,7 @@ asect 0xff00
 _points> ds 50 # 0xff00
 _colors> ds 24 # 0xff32
 _player> ds 1 # 0xff4a
-_dbg> ds 1 # 0xff4b
+_reserved> ds 1 # 0xff4b
 _random> ds 2 #0xff4c,0xff4d
 _amt_of_checkers> ds 2 #0xff4e, 0xff4f
 
