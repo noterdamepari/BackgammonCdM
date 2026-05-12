@@ -448,7 +448,7 @@ __LBB0_57:                              # %for.body162
 	cmp	r0, r3
 	bne	__LBB0_59
 	br	__LBB0_58
-__LBB0_59:                              # %for.inc173
+__LBB0_59:                              # %for.inc172
                                         #   in Loop: Header=BB0_57 Depth=2
 	add	r2, 1
 	lsw	r3, -22                         # 2-byte Folded Reload
@@ -503,7 +503,7 @@ __LBB0_58:                              # %if.then167
 	stb	r3, r2, r4
 	ldi	r4, 1
 	br	__LBB0_60
-__LBB0_60:                              # %cleanup175
+__LBB0_60:                              # %cleanup174
                                         #   in Loop: Header=BB0_6 Depth=1
 	lsw	r2, -28                         # 2-byte Folded Reload
 	sub r2, r1, r2
@@ -513,7 +513,7 @@ __LBB0_60:                              # %cleanup175
 	cmp	r2, r1
 	beq	__LBB0_63
 	br	__LBB0_61
-__LBB0_63:                              # %if.else193
+__LBB0_63:                              # %if.else192
                                         #   in Loop: Header=BB0_6 Depth=1
 	ldi	r2, 2
 	lsw	r5, -22                         # 2-byte Folded Reload
@@ -521,7 +521,7 @@ __LBB0_63:                              # %if.else193
 	ldi	r1, _random+1
 	bne	__LBB0_65
 	br	__LBB0_64
-__LBB0_61:                              # %if.then181
+__LBB0_61:                              # %if.then180
                                         #   in Loop: Header=BB0_6 Depth=1
 	ldi	r2, _random
 	ldsb	r2, r1
@@ -531,7 +531,7 @@ __LBB0_61:                              # %if.then181
 	movens	r5, r2
 	beq	__LBB0_64
 	br	__LBB0_62
-__LBB0_62:                              # %if.else186
+__LBB0_62:                              # %if.else185
                                         #   in Loop: Header=BB0_6 Depth=1
 	ldi	r2, _random+1
 	ldsb	r2, r1
@@ -540,12 +540,12 @@ __LBB0_62:                              # %if.else186
 	movens	r5, r2
 	beq	__LBB0_64
 	br	__LBB0_65
-__LBB0_64:                              # %cleanup206.sink.split
+__LBB0_64:                              # %cleanup205.sink.split
                                         #   in Loop: Header=BB0_6 Depth=1
 	ldi	r0, 0
 	stb	r1, r0
 	movens	r2, r5
-__LBB0_65:                              # %cleanup206
+__LBB0_65:                              # %cleanup205
                                         #   in Loop: Header=BB0_6 Depth=1
 	ldi	r0, 97
 	movens	r0, r1
@@ -567,7 +567,7 @@ __LBB0_65:                              # %cleanup206
 	ldi	r2, 12
 	bne	__LBB0_6
 	br	__LBB0_66
-__LBB0_42:                              # %cleanup206.thread
+__LBB0_42:                              # %cleanup205.thread
 	ldi	r0, __L.str.3
 	jsr	print_to_tty
 	br	__LBB0_66
@@ -611,11 +611,6 @@ __L.str:                                # @.str
 
 __L.str.1:                              # @.str.1
 	db	10
-	db	68
-	db	66
-	db	71
-	db	58
-	db	32
 	db	67
 	db	111
 	db	109
