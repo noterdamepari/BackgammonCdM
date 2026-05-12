@@ -10,6 +10,8 @@ extern volatile char _reserved;
 extern volatile char _random[2];
 extern volatile char _amt_of_checkers[2];
 
+extern unsigned int state;
+
 char move_checker(unsigned char* move);
 char remove_checker(unsigned char from);
 void print_to_tty(char* string);

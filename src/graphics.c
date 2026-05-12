@@ -32,6 +32,7 @@ void print_to_tty(char* string){
 unsigned char getc(){
     unsigned char chr;
     while(1) {
+        state ^= (state << 1); 
         chr = *in;
         if (chr >= 'a' && chr <= 'z') {
             return chr - 'a';

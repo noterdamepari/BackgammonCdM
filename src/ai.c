@@ -48,7 +48,7 @@ void computer_move(unsigned char* can_remove_checker) {
 
     // * process double
     if (d1 == d2) {
-        print_to_tty("\nRolling doubles!!");
+        print_to_tty("\nRolling doubles!!\n");
         dice[0] = d1; dice[1] = d1; dice[2] = d1; dice[3] = d1;
         dice_count = 4;
         head_can_taken = 2;
