@@ -31,7 +31,7 @@ void computer_move(unsigned char* can_remove_checker) {
 
     if (!(*can_remove_checker)){
         if (is_all_in_home()){
-            print_to_tty ("\nDBG: Computer now can bearing off!");
+            print_to_tty ("\nComputer now can bearing off!");
             *can_remove_checker = 1;
         } 
     }
